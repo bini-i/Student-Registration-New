@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  first_name: MyString
+  father_name: MyString
+  last_name: MyString
+  gender: MyString
+  martial_status: MyString
+  nationality: MyString
+  dob: 2023-10-31
+
+two:
+  first_name: MyString
+  father_name: MyString
+  last_name: MyString
+  gender: MyString
+  martial_status: MyString
+  nationality: MyString
+  dob: 2023-10-31
