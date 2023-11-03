@@ -75,3 +75,7 @@ group :test do
 end
 
 gem "devise", "~> 4.9"
+
+gem "devise-bootstrap-views", "~> 1.1"
+
+gem "bootstrap_form", "~> 5.4"

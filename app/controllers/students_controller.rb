@@ -13,6 +13,9 @@ class StudentsController < ApplicationController
   # GET /students/new
   def new
     @student = Student.new
+    unless current_user.registrar_desk?
+      redirect_to root_path, notice: "Access denied"
+    end
   end
 
   # GET /students/1/edit

@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #e3f2fd;">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">
+      <img src="/assets/sevenstar.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+      Seven Star
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <%= link_to "Home", root_path, class: "nav-link active" %>
+
+          <%# <a class="nav-link active" aria-current="page" href="#">Home</a> %>
+        </li>
+        
+        <% if current_user.registrar_desk? %>
+          <li class="nav-item">
+            <%= link_to "Register Students",  new_student_path, class: "nav-link" %>
+
+            <%# <a class="nav-link" href="#">Register Students</a> %>
+          </li>
+        <% end %>
+
+        <% if current_user %>
+          <li class="nav-item dropdown mr-auto">
+            <a class="nav-link dropdown-toggle fw-bolder" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <%= current_user.first_name %>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <span class="dropdown-item disabled"> <%= current_user.role %> </span>
+              </li>              
+              <li>
+                <%= link_to "Sign out",  destroy_user_session_path, 'data-turbo-method': :delete, class: "dropdown-item" %>
+              </li>
+              <%# <li><a class="dropdown-item" href="#">Another action</a></li> %>
+            </ul>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>

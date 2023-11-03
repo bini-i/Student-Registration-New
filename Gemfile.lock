@@ -72,6 +72,9 @@ GEM
     bindex (0.8.1)
     bootsnap (1.17.0)
       msgpack (~> 1.2)
+    bootstrap_form (5.4.0)
+      actionpack (>= 6.1)
+      activemodel (>= 6.1)
     builder (3.2.4)
     capybara (3.39.2)
       addressable
@@ -96,6 +99,7 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise-bootstrap-views (1.1.0)
     erubi (1.12.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
@@ -228,10 +232,12 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap
+  bootstrap_form (~> 5.4)
   capybara
   cssbundling-rails
   debug
   devise (~> 4.9)
+  devise-bootstrap-views (~> 1.1)
   jbuilder
   jsbundling-rails
   pg (~> 1.1)
