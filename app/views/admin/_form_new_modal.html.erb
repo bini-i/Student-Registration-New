@@ -1,0 +1,37 @@
+<%= turbo_frame_tag "turbomodal", target: :_top do %>
+    <div class="modal fade" data-controller="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Creating user...</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                        <%= bootstrap_form_with(model: @user, url: admin_index_path, method: :post) do |f| %>
+                            <% if @user.errors.any? %>
+                                <div style="color: red">
+                                    <h2><%= pluralize(@User.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+                                    <ul>
+                                    <% @user.errors.each do |error| %>
+                                        <li><%= error.full_message %></li>
+                                    <% end %>
+                                    </ul>
+                                </div>
+                            <% end %>
+                            <%= f.text_field :first_name, placeholder: "First name" %>
+                            <%= f.text_field :father_name, placeholder: "Father name" %>
+                            <%= f.text_field :last_name, placeholder: "Last name" %>
+                            <%= f.email_field :email, placeholder: "Email" %>
+                            <%= f.select :role, User.roles.keys.map { |w| [w.humanize, w]}, include_blank: "Select a role" %>
+                            <%= f.submit class: "btn btn-sm btn-success" %>
+                        <% end %>
+                </div>
+                <%# <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div> %>
+            </div>
+        </div>
+    </div>
+<% end %>
