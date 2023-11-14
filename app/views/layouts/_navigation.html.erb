@@ -33,6 +33,9 @@
                 <span class="dropdown-item disabled"> <%= current_user.role %> </span>
               </li>              
               <li>
+                <%= link_to "Admin dashboard", admin_index_path, class: "dropdown-item" if current_user.admin? %>
+              </li>
+              <li>
                 <%= link_to "Change your password",  edit_user_registration_path, class: "dropdown-item" %>
               </li>
               <li>
