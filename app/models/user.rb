@@ -12,6 +12,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
 
-  validates_presence_of :first_name, :father_name, :last_name, :email
-  validates :email, uniqueness: true
+  validates :first_name, presence: true
+  validates :father_name, presence: true
+  validates :last_name, presence: true
+  validates :email, presence: true
+
 end
