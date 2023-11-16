@@ -20,6 +20,8 @@
   
     <%= yield %>
 
+    <%= render "shared/flash_notice" %>
+    
     <%= turbo_frame_tag "turbomodal" %>
 
   </body>
