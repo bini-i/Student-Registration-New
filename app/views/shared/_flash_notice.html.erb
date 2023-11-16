@@ -1,6 +1,13 @@
 <% flash.each do |type, message| %>
-  <div class="alert alert-warning alert-dismissible fade show" role="alert">
-    <%= message %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  <div class="toast-container position-fixed top-0 end-0 p-3 border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-controller="flash">
+      <div class="toast-header">
+        <strong class="me-auto"><%= type %></strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        <strong> <%= message %> </strong>
+      </div>
+    </div>
   </div>
 <% end %>

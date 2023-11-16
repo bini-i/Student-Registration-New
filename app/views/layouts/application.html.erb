@@ -16,11 +16,10 @@
         <%= render 'layouts/navigation' %>
           <%#= link_to "Sign out",  destroy_user_session_path, 'data-turbo-method': :delete %>
       </header>
+      <%= render "shared/flash_notice" %>
     <% end %>
   
     <%= yield %>
-
-    <%= render "shared/flash_notice" %>
     
     <%= turbo_frame_tag "turbomodal" %>
 
