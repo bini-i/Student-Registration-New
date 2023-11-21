@@ -1,5 +1,5 @@
 class AdminController < ApplicationController
-  before_action :set_user, only: [:edit, :update, :destroy]
+  before_action :set_user, only: [:edit, :update, :destroy, :reset]
   before_action :authenticate_user!
   before_action :authorize_admin!
   
@@ -15,7 +15,6 @@ class AdminController < ApplicationController
   def create
     @user = User.new(user_params)
     @user.password = Random.rand(100000..999999)
-    puts "passworrd:- #{@user.password}"
     if @user.save
       redirect_to admin_index_path, flash: {
         notice: 'User created', 
@@ -48,6 +47,25 @@ class AdminController < ApplicationController
       redirect_to admin_index_path, notice: "User deleted"
     else
       redirect_to admin_index_path, status: :unprocessable_entity, notice: "Error deleting"
+    end
+  end
+
+  # resets a given user's password by generating a new 6 digit password
+  def reset
+    @user.password = Random.rand(100000..999999)
+    if @user.save
+      redirect_to admin_index_path, flash: {
+        notice: "Password reset successful",
+        password: "
+        Please let the user have 
+        the password below to login and 
+        set a new password
+        
+        password : #{@user.password}
+        "
+      }
+    else
+      redirect_to admin_index_path, status: :unprocessable_entity, notice: "Error reseting"
     end
   end
 

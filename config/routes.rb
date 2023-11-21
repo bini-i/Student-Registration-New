@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :admin, only: [:index, :new, :create, :edit, :update, :destroy]
+  post 'admin/:id/reset', to: "admin#reset", as: 'admin_reset'
 
   as :user do
     get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'    
