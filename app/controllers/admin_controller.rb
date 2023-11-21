@@ -4,7 +4,7 @@ class AdminController < ApplicationController
   before_action :authorize_admin!
   
   def index
-    @users = User.all
+    @users = User.all.order(:first_name)
     @user = User.new
   end
 
