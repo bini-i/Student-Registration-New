@@ -2,8 +2,7 @@ Rails.application.routes.draw do
   root 'pages#home'      #root path or home page
   devise_for :users
 
-  resources :admin, only: [:index, :new, :create, :edit, :update]
-  # get 'admin/edit', to: "admin#edit"
+  resources :admin, only: [:index, :new, :create, :edit, :update, :destroy]
 
   as :user do
     get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'    

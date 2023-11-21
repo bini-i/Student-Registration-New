@@ -23,7 +23,14 @@
             <td><%= user.role %></td>
             <td>
                 <%= link_to "update", edit_admin_path(user), data: {controller: "turbo"}, class: "btn btn-primary btn-sm" %>
-                <%= link_to "Reset", edit_admin_path(user), data: {controller: "turbo"}, class: "btn btn-primary btn-sm" %>
+                <%= link_to "Reset", edit_admin_path(user), data: {controller: "turbo"}, class: "btn btn-primary btn-sm ms-2" %>
+                
+                <%# To hide delete button for the current admin so that he/she wont delete themselves %>
+                <% if current_user != user %> 
+                  <%= link_to admin_path(user), data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to delete #{user.first_name} #{user.father_name}"}, class: "ms-2" do %>
+                    <i class="bi bi-trash"></i>
+                  <% end %>
+                <% end %>
             </td>
         </tr>
     <% end %>
