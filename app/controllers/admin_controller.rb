@@ -4,7 +4,7 @@ class AdminController < ApplicationController
   before_action :authorize_admin!
   
   def index
-    @users = User.all.order(:first_name)
+    @users = User.all.order(:created_at)
     @user = User.new
   end
 
@@ -15,6 +15,7 @@ class AdminController < ApplicationController
   def create
     @user = User.new(user_params)
     @user.password = Random.rand(100000..999999)
+    
     if @user.save
       redirect_to admin_index_path, flash: {
         notice: 'User created', 
@@ -53,6 +54,7 @@ class AdminController < ApplicationController
   # resets a given user's password by generating a new 6 digit password
   def reset
     @user.password = Random.rand(100000..999999)
+    @user.sign_in_count = 0
     if @user.save
       redirect_to admin_index_path, flash: {
         notice: "Password reset successful",
