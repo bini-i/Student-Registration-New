@@ -18,9 +18,10 @@
       </header>
       <%= render "shared/flash_notice" %>
     <% end %>
-  
-    <%= yield %>
-    
+
+    <main>
+      <%= yield %>
+    <main>
     <%= turbo_frame_tag "turbomodal" %>
 
   </body>
