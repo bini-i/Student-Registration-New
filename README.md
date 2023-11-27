@@ -15,6 +15,7 @@ A list of commonly used resources that I find helpful is listed in the acknowled
 ## Table of Contents
 
 - [About the Project](#about-the-project)
+- [SRS](#SRS)
 - [Built With](#built-with)
 - [Live Demo](#live-demo)
 - [Getting Started](#getting-started)
@@ -31,6 +32,10 @@ A list of commonly used resources that I find helpful is listed in the acknowled
 - [HTML5](https://en.wikipedia.org/wiki/HTML5)
 - [Bootstrap](https://getbootstrap.com/)
 - [JavaScript](https://en.wikipedia.org/wiki/JavaScript)
+
+## SRS
+
+[SRS](https://docs.google.com/document/d/e/2PACX-1vS8mkWKRZU0pvQJjQxLcdGqbHqwsGAf-B_MFYLalTsemA9YOoYdSeYZ4yJetI5VYX9n6ZFGYI4uCz6s/pub)
 
 ## Live Demo
 
