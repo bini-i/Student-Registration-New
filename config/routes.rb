@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :departments
   root 'pages#home'      #root path or home page
   devise_for :users
 
