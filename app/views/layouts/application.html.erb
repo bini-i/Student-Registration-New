@@ -10,19 +10,24 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
   
-  <body class="container bg-body-secondary" >
-    <% if user_signed_in? %>
-      <header class="mb-3 my-3">
-        <%= render 'layouts/navigation' %>
-          <%#= link_to "Sign out",  destroy_user_session_path, 'data-turbo-method': :delete %>
-      </header>
-      <%= render "shared/flash_notice" %>
-    <% end %>
+  <body class="bg-body-secondary" >
+    <div class="">
+      <div class="position-fixed vh-100">
+        <% if user_signed_in? %>
+          <header class="vh-100">
+            <%= render 'layouts/navigation' %>
+              <%#= link_to "Sign out",  destroy_user_session_path, 'data-turbo-method': :delete %>
+          </header>
+          <%= render "shared/flash_notice" %>
+        <% end %>
+      </div>
 
-    <main>
-      <%= yield %>
-    <main>
-    <%= turbo_frame_tag "turbomodal" %>
-
+      <div class="" style="<%= 'margin-left: 264px;' if user_signed_in? %>">
+        <div class="pt-3 px-5 min-vh-100">
+          <%= yield %>
+        <div>
+        <%= turbo_frame_tag "turbomodal" %>
+      </div>
+    </div>
   </body>
 </html>

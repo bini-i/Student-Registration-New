@@ -1,6 +1,45 @@
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/_variables-dark.scss";
+@import 'bootstrap/scss/maps';
+@import 'bootstrap/scss/utilities';
+
+$font-sizes: (
+  1: 4rem,
+  2: 3rem,
+  3: 2rem,
+  4: 1rem,
+  5: 0.9rem,
+  6: 0.75rem,
+);
+
+$utilities: map-merge(
+  $utilities,
+  (
+    "font-size": map-merge(
+      map-get($utilities, "font-size"),
+      (
+        values: $font-sizes,
+      ),
+    ),
+  )
+);
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
 
 .fit-width {
     width: fit-content;
+}
+
+.custom-nav-link {
+    font-size: 14px;
+}
+
+.nav-item:hover {
+    background-color: #fafafa;
+}
+
+.navbar-nav .nav-item .active {
+    background-color: #f4f3f6;
 }

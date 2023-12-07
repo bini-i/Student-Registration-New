@@ -1,50 +1,51 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #e3f2fd;">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">
-      <img src="/assets/sevenstar.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
-      Seven Star
-    </a>
+<nav class="nav navbar-expand-lg vh-100" style="background-color: #fff;">
+  <div class="pt-3" style="width: 264px">
+    <div class="px-3 pb-3">
+      <a class="navbar-brand" href="/">
+        <img src="/assets/sevenstar.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+        brand
+      </a>
+    </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav w-100">
+    <div class="collapse navbar-collapse w-100 pt-1 px-3" id="navbarNavDropdown">
+      <ul class="navbar-nav flex-column w-100">
         <li class="nav-item">
-          <%= link_to "Home", root_path, class: "nav-link active" %>
-
-          <%# <a class="nav-link active" aria-current="page" href="#">Home</a> %>
+          <%= link_to "Home", root_path, class: "px-2 custom-nav-link nav-link #{'active' if current_page? root_path}" %>
         </li>
         
         <% if current_user.registrar_desk? %>
           <li class="nav-item">
-            <%= link_to "Register Students",  new_student_path, class: "nav-link" %>
+            <%= link_to "Register Students",  new_student_path, class: "px-2 custom-nav-link nav-link #{'active' if current_page? root_path}" %>
 
             <%# <a class="nav-link" href="#">Register Students</a> %>
           </li>
         <% end %>
 
         <% if current_user %>
-          <li class="nav-item dropdown ms-auto me-2">
-            <a class="nav-link dropdown-toggle fw-bolder" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <%= current_user.first_name %>
-            </a>
-            <ul class="dropdown-menu">
-              <li>
+
+<!--              <li class="nav-item">
                 <span class="dropdown-item disabled"> <%= current_user.role %> </span>
               </li>              
-              <li>
-                <%= link_to "Admin dashboard", admin_index_path, class: "dropdown-item" if current_user.admin? %>
+-->    
+
+              <li class="nav-item">
+                <%= link_to "Departments", departments_path, class: "px-2 custom-nav-link nav-link #{'active' if current_page? departments_path}" if current_user.dean? %>
               </li>
-              <li>
-                <%= link_to "Change your password",  edit_user_registration_path, class: "dropdown-item" %>
+
+              <li class="nav-item">
+                <%= link_to "Admin dashboard", admin_index_path, class: "px-2 custom-nav-link nav-link #{'active' if current_page? admin_index_path}" if current_user.admin? %>
               </li>
-              <li>
-                <%= link_to "Sign out",  destroy_user_session_path, 'data-turbo-method': :delete, class: "dropdown-item" %>
+              <li class="nav-item">
+                <%= link_to "Change your password",  edit_user_registration_path, class: "px-2 custom-nav-link nav-link #{'active' if current_page? edit_user_registration_path}" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Sign out",  destroy_user_session_path, 'data-turbo-method': :delete, class: "px-2 custom-nav-link nav-link" %>
               </li>
 
               <%# <li><a class="dropdown-item" href="#">Another action</a></li> %>
-            </ul>
-          </li>
+
         <% end %>
       </ul>
     </div>
