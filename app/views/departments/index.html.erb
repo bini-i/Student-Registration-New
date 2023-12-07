@@ -1,7 +1,14 @@
+<!--
 <p style="color: green"><%= notice %></p>
+-->
 
-<h1>Departments</h1>
+<div class="d-flex mb-4">
+  <h2 class="font-weight-normal">Departments</h2>
+  
+  <%= link_to "New department", new_department_path, class: "btn btn-primary btn-sm d-inline-flex align-items-center ms-auto" %>
+</div>
 
+<!--
 <div id="departments">
   <% @departments.each do |department| %>
     <%= render department %>
@@ -10,5 +17,31 @@
     </p>
   <% end %>
 </div>
+-->
 
-<%= link_to "New department", new_department_path %>
+<div class="table-responsive fs-5">
+  <table class="table table-sm table-striped align-middle">
+    <thead>
+      <tr>
+        <th scope="col">No.</th>
+        <th scope="col">Department name</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @departments.each_with_index do |department, index| %>
+        <tr class="" style="height: 50px">
+          <td><%= index+1 %></td>
+          <td><%= department.dept_name %></td>
+          <td>
+            <%= link_to "edit", edit_department_path(department), data: {controller: "turbo"}, class: "btn btn-outline-primary btn-sm" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<% if @departments.empty? %>
+  <%= render partial: "placeholder" %>
+<% end %>

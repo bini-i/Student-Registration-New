@@ -1,21 +1,24 @@
-<%= form_with(model: department) do |form| %>
-  <% if department.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(department.errors.count, "error") %> prohibited this department from being saved:</h2>
+<%= bootstrap_form_with(model: department) do |form| %>
+  <div class="bg-white p-4 my-4">
+    <h6 class="mb-3">Department detail</h6>
 
-      <ul>
-        <% department.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+    <% if department.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(department.errors.count, "error") %> prohibited this department from being saved:</h2>
+
+        <ul>
+          <% department.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <%= form.text_field :dept_name, hide_label: true, placeholder: "Department Name" %>
     </div>
-  <% end %>
 
-  <div>
-    <%= form.label :dept_name, style: "display: block" %>
-    <%= form.text_field :dept_name %>
   </div>
-
   <div>
     <%= form.submit %>
   </div>

@@ -1,0 +1,38 @@
+<%= turbo_frame_tag "turbomodal", target: :_top do %>
+    <div class="modal fade" data-controller="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editing department...</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                        <%= bootstrap_form_for(department, url: department_path(department), remote: true, method: :patch) do |form| %>
+                            <% if department.errors.any? %>
+                                <div style="color: red">
+                                    <h2><%= pluralize(department.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+                                    <ul>
+                                        <% department.errors.each do |error| %>
+                                            <li><%= error.full_message %></li>
+                                        <% end %>
+                                    </ul>
+                                </div>
+                            <% end %>
+                            <div>
+                                <%= form.text_field :dept_name %>
+                            </div>
+
+                            <div>
+                                <%= form.submit class: "btn btn-sm btn-success" %>
+                            </div>
+                        <% end %>
+                </div>
+                <%# <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div> %>
+            </div>
+        </div>
+    </div>
+<% end %>

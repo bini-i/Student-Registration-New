@@ -1,9 +1,18 @@
-<h1>New department</h1>
+<div class="d-flex flex-column align-items-center" style="margin-top: 80px">
+  <h3 class="mb-5" style="">Creating new department</h3>
 
-<%= render "form", department: @department %>
+  <div class="w-100 d-flex flex-column align-items-center">
+    <div class="w-100" style="max-width: 512px;">
+      <div class="">
+        <%= link_to departments_path, class: "link-underline link-underline-opacity-0" do %>
+          <i class="bi bi-arrow-left"></i>
+          <span class="fs-5">Back</span>
+        <% end %>
+      </div>
 
-<br>
+      <%= render "form", department: @department %>
 
-<div>
-  <%= link_to "Back to departments", departments_path %>
+      <br>
+    </div>
+  </div>
 </div>
