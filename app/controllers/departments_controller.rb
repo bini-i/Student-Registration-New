@@ -4,7 +4,6 @@ class DepartmentsController < ApplicationController
   # GET /departments or /departments.json
   def index
     @departments = Department.all
-    console
   end
 
   # GET /departments/1 or /departments/1.json
