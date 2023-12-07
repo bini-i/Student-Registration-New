@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
-  resources :departments
   root 'pages#home'      #root path or home page
   devise_for :users
+  
+  resources :departments do
+    resources :courses
+  end
 
   resources :admin, only: [:index, :new, :create, :edit, :update, :destroy]
   post 'admin/:id/reset', to: "admin#reset", as: 'admin_reset'

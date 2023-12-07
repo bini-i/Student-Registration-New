@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  course_name: MyString
+  credit_hour: 1
+  ects: 1
+  course: one
+  department: one
+
+two:
+  course_name: MyString
+  credit_hour: 1
+  ects: 1
+  course: two
+  department: two
