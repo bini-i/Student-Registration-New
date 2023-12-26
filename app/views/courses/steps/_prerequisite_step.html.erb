@@ -1,0 +1,30 @@
+<div class="alert alert-info" role="alert">
+    Select below prequisite courses for "<%= @course.course_name %>"
+</div>
+<div id="autoComplete_wrapper" data-courses="<%= @course_list.to_json %>">
+    <%= form.search_field :query, id: "autoComplete", autocomplete: :off, placeholder: "search prequisite courses", hide_label: true, class: "" %> 
+</div>
+
+<script>
+  console.log("running from autocomplete")
+  if(typeof courses == 'undefined' && typeof autoCompleteJS == 'undefined'){
+    const courses = JSON.parse(document.getElementById('autoComplete_wrapper').dataset.courses)
+    const autoCompleteJS = new autoComplete({
+      data: {
+          src: courses,
+          cache: true,
+      },
+      resultItem: {
+          highlight: true
+      },
+      events: {
+          input: {
+              selection: (event) => {
+                  const selection = event.detail.selection.value;
+                  autoCompleteJS.input.value = selection;
+              }
+          }
+      }
+    });
+  }
+</script>

@@ -1,42 +1,26 @@
-<%= form_with(model: [@department, course], local: true) do |form| %>
-  <% if course.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(course.errors.count, "error") %> prohibited this course from being saved:</h2>
+<%= bootstrap_form_with(model: [@department, course], local: true, data: {turbo: false}) do |form| %>
+  <div class="bg-white p-4 my-4">
+    <h6 class="mb-3">Course detail</h6>
 
-      <ul>
-        <% course.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+    <% if course.errors.any? %>
+      <div style="color: red">
 
-  <div>
-    <%= form.label :course_name, style: "display: block" %>
-    <%= form.text_field :course_name %>
+        <ul>
+          <% course.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= render "courses/steps/#{course.current_step}_step", form: form %>
   </div>
 
   <div>
-    <%= form.label :credit_hour, style: "display: block" %>
-    <%= form.number_field :credit_hour %>
-  </div>
-
-  <div>
-    <%= form.label :ects, style: "display: block" %>
-    <%= form.number_field :ects %>
-  </div>
-
-  <div>
-    <%= form.label :course_id, style: "display: block" %>
-    <%= form.text_field :course_id %>
-  </div>
-
-  <div>
-    <%= form.label :department_id, style: "display: block" %>
-    <%= form.text_field :department_id %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+    <%= form.submit "Add Course", class: "btn btn-primary" if course.last_step? %>
+    <%= form.submit "Next", class: "btn btn-primary" unless course.last_step? %>
+    <%= form.submit "Back", name: "back_button", class: "btn btn-primary" unless course.first_step? %>
   </div>
 <% end %>
+
+

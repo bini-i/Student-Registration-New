@@ -1,7 +1,7 @@
 <div class="d-flex mb-4">
   <h2 class="font-weight-normal"><%= @department.dept_name %>'s courses</h2>
   
-  <%= link_to "Add course", new_department_course_path(@department), data: {controller: "turbo"}, class: "btn btn-primary btn-sm d-inline-flex align-items-center ms-auto" %>
+  <%= link_to "Add course", new_department_course_path(@department), class: "btn btn-primary btn-sm d-inline-flex align-items-center ms-auto" %>
 </div>
 
 <p style="color: green"><%= notice %></p>
@@ -21,7 +21,6 @@
         <th scope="col">Course Name</th>
         <th scope="col">Credit hour</th>
         <th scope="col">Ects</th>
-        <th scope="col">Prerequisite</th>
         <th scope="col">Action</th>
       </tr>
     </thead>
@@ -32,11 +31,8 @@
           <td><%= course.course_name %></td>
           <td><%= course.credit_hour %></td>
           <td><%= course.ects %></td>
-          <td><%= course.prerequisite %></td>
           <td>
-  <%#= button_to "Destroy this course", department_course_path(@department, @course), method: :delete %>
-
-            <%= link_to "delete", department_course_path(@department, course), data: {'turbo-method': :delete, 'turbo-confirm': "Are you sure you want to delete '#{course.course_name}' course? This action can NOT be undone!"}, class: "btn btn-outline-primary btn-sm" %>
+            <%= link_to "delete", course_destroy_form_path(@department, course), data: {'turbo-method': :delete, 'turbo-confirm': "Are you sure you want to delete '#{course.course_name}' course? This action can NOT be undone!", 'turbo-controller': "turbo"}, class: "btn btn-outline-danger btn-sm" %>
           </td>
         </tr>
       <% end %>

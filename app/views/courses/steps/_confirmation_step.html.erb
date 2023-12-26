@@ -1,0 +1,37 @@
+<table class="table table-info">
+    <tbody>
+        <tr>
+            <th>Course Name</th>
+            <td> <%= @course.course_name %> </td>
+        </tr>
+
+        <tr>
+            <th>Credit hour</th>
+            <td> <%= @course.credit_hour %> </td>
+        </tr>
+        
+        <tr>
+            <th>Ects</th>
+            <td> <%= @course.ects %> </td>
+        </tr>        
+        
+        <tr>
+            <th>Prerequisite</th>
+            <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>course 1</td>
+                    </tr>
+                    <tr>
+                        <td>course 2</td>
+                    </tr>
+                    <tr>
+                        <td>course 3</td>
+                    </tr>
+                <tbody>
+            </table>
+            </td>
+        </tr>
+    </tbody>
+</table>

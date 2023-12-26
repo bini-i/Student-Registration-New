@@ -1,0 +1,47 @@
+<%= turbo_stream.replace "turbomodal" do %>
+    <%= turbo_frame_tag "turbomodal", target: :_top do %>
+        <div class="modal fade" data-controller="modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Delete "<%= @course.course_name %>"</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="alert alert-warning" role="alert">
+                        This action can NOT be undone <br> All records of students registered to this course might be lost.
+                    </div>
+                    <div class="modal-body">
+                        <%= bootstrap_form_with(model: @user, url: department_course_path(@department, @course), method: :delete, html_options: {disabled: true} ) do |f| %>
+
+                            <% if @user.errors.any? %>
+                                <div style="color: red">
+                                    <ul>
+                                        <% @user.errors.each do |error| %>
+                                            <li><%= error.full_message %></li>
+                                        <% end %>
+                                    </ul>
+                                </div>
+                            <% end %>
+
+                            <div class="form-group">
+                                <p>To confirm please enter you email and password below</p>
+                            </div>
+
+                            <%= f.email_field :email, placeholder: "Email" %>
+
+                            <%= f.password_field :password, placeholder: "Password", autocomplete: 'current-password', class: 'form-control' %>
+
+                            <div class="form-group">
+                                <%= f.submit  "Delete course", class: 'btn btn-outline-danger' %>
+                            </div>
+                        <% end %>
+                    </div>
+                    <%# <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div> %>
+                </div>
+            </div>
+        </div>
+    <% end %>
+<% end %>
