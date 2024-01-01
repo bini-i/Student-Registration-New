@@ -24,7 +24,7 @@
                             </div>
 
                             <div>
-                                <%= form.submit class: "btn btn-sm btn-success" %>
+                                <%= form.submit class: "btn btn-sm btn-success", data: {'turbo-confirm': "Are you sure? You are trying to rename #{department.dept_name} department."} %>
                             </div>
                         <% end %>
                 </div>

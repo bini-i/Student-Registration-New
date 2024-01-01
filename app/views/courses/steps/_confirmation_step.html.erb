@@ -16,19 +16,15 @@
         </tr>        
         
         <tr>
-            <th>Prerequisite</th>
+            <th>Prerequisites</th>
             <td>
             <table>
                 <tbody>
-                    <tr>
-                        <td>course 1</td>
-                    </tr>
-                    <tr>
-                        <td>course 2</td>
-                    </tr>
-                    <tr>
-                        <td>course 3</td>
-                    </tr>
+                    <% session[:prerequisite].each do |course| %>
+                        <tr>
+                            <td><%= course %></td>
+                        </tr>
+                    <% end %>
                 <tbody>
             </table>
             </td>

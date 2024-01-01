@@ -49,6 +49,7 @@ class DepartmentsController < ApplicationController
 
   # DELETE /departments/1 or /departments/1.json
   def destroy
+    # feature to delete a department removed. If needed, can be performed manually from the console
     # @department.destroy
 
     respond_to do |format|

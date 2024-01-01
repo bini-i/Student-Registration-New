@@ -1,9 +1,25 @@
 <div class="alert alert-info" role="alert">
     Select below prequisite courses for "<%= @course.course_name %>"
 </div>
-<div id="autoComplete_wrapper" data-courses="<%= @course_list.to_json %>">
-    <%= form.search_field :query, id: "autoComplete", autocomplete: :off, placeholder: "search prequisite courses", hide_label: true, class: "" %> 
+<div class="d-flex justify-content-between" id="autoComplete_wrapper" data-courses="<%= @course_list.to_json %>">
+    <%= form.search_field :prerequisite_course_name, id: "autoComplete", autocomplete: :off, placeholder: "search prerequisite courses", hide_label: true, class: "" %> 
+  
+    <%= form.submit "Add", name: "add_prerequisite", class: "btn btn-primary", style: "height: 40px" %>
 </div>
+
+<% if session[:prerequisite] %>
+  <ul class="list-group list-group-flush">
+    <% session[:prerequisite].each do |course| %>
+      <li class="list-group-item d-flex justify-content-between">
+        <%= course %>
+        <%= button_tag :submit, name: "remove_prerequisite", value: course, class: "border-0" do %>
+          <i class="bi bi-x-circle-fill text-danger"></i>
+        <% end %>
+      </li>
+    <% end %>
+  <ul>
+<% end %>
+
 
 <script>
   console.log("running from autocomplete")

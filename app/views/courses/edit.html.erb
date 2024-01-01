@@ -1,10 +1,19 @@
-<h1>Editing course</h1>
+<div class="d-flex flex-column align-items-center" style="margin-top: 80px">
+  <h3 class="mb-5" style="">Editing "<%= @course.course_name %>" course</h3>
 
-<%= render "form", course: @course %>
+  <div class="w-100 d-flex flex-column align-items-center">
+    <div class="w-100" style="max-width: 512px;">
 
-<br>
+      <div class="" >
+        <%= link_to department_courses_path(@department), class: "link-underline link-underline-opacity-0" do %>
+          <i class="bi bi-arrow-left"></i>
+          <span class="fs-5">Back to <%= @department.dept_name %></span>
+        <% end %>
+      </div>
 
-<div>
-  <%= link_to "Show this course", department_course_path(@department, @course) %> |
-  <%= link_to "Back to courses", department_courses_path(@department) %>
+      <%= render "form", course: @course %>
+
+      <br>
+    </div>
+  </div>
 </div>

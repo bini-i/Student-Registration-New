@@ -1,6 +1,6 @@
 <%= bootstrap_form_with(model: [@department, course], local: true, data: {turbo: false}) do |form| %>
   <div class="bg-white p-4 my-4">
-    <h6 class="mb-3">Course detail</h6>
+    <h6 class="mb-3"><%= "Confirm " if course.last_step? %>Course details</h6>
 
     <% if course.errors.any? %>
       <div style="color: red">
@@ -17,7 +17,7 @@
   </div>
 
   <div>
-    <%= form.submit "Add Course", class: "btn btn-primary" if course.last_step? %>
+    <%= form.submit class: "btn btn-primary" if course.last_step? %>
     <%= form.submit "Next", class: "btn btn-primary" unless course.last_step? %>
     <%= form.submit "Back", name: "back_button", class: "btn btn-primary" unless course.first_step? %>
   </div>

@@ -4,28 +4,33 @@ class CoursesController < ApplicationController
 
   # GET /courses or /courses.json
   def index
-    session[:step] = session[:course_params] = nil
+    session[:step] = session[:course_params] = session[:prerequisite] = nil
     @courses = @department.courses
   end
 
   # GET /courses/1 or /courses/1.json
   def show
+    redirect_to department_courses_path(@department)
   end
 
   # GET /courses/new
   def new
     session[:course_params] ||= {}
+    session[:prerequisite] ||= []
     @course = @department.courses.build
   end
 
   # GET /courses/1/edit
   def edit
+    session[:course_params] ||= {}
+    session[:prerequisite] ||= @course.prerequisite_courses.pluck(:course_name)
   end
 
   # POST /courses or /courses.json
   def create
     session[:course_params].deep_merge!(course_params) if params[:course]
     @course = @department.courses.build(session[:course_params])
+
     @course_list = Course.pluck(:course_name)
 
     @course.current_step = session[:step]
@@ -33,8 +38,22 @@ class CoursesController < ApplicationController
     if @course.valid?
       if params[:back_button]
         @course.previous_step
+      elsif params[:add_prerequisite]
+        if Course.where(course_name: params[:course][:prerequisite_course_name]).empty?
+          @course.errors.add(:base, "Course '#{params[:course][:prerequisite_course_name]}' does NOT exist")
+        elsif session[:prerequisite].include? params[:course][:prerequisite_course_name]
+          @course.errors.add(:base, "Course already added")
+        else
+          session[:prerequisite] << params[:course][:prerequisite_course_name]
+        end
+      elsif params[:remove_prerequisite]
+        session[:prerequisite].delete(params[:remove_prerequisite])
       elsif @course.last_step?
-        @course.save
+        if @course.save
+          session[:prerequisite].each do |prerequisite_course|
+            Prerequisite.create(course_id: @course.id, prerequisite_course_id: Course.find_by(course_name: prerequisite_course).id)
+          end
+        end
       else 
         @course.next_step
       end
@@ -45,21 +64,50 @@ class CoursesController < ApplicationController
     if @course.new_record?
       render "new"
     else
-      session[:step] = session[:course_params] = nil
+      session[:step] = session[:course_params] = session[:prerequisite] = nil
       redirect_to department_courses_path(@department), notice: "Course was successfully created."
     end
   end
 
   # PATCH/PUT /courses/1 or /courses/1.json
   def update
-    respond_to do |format|
-      if @course.update(course_params)
-        format.html { redirect_to department_course_path(@department), notice: "Course was successfully updated." }
-        format.json { render :show, status: :ok, location: @course }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @course.errors, status: :unprocessable_entity }
+    session[:course_params].deep_merge!(course_params) if params[:course]
+    @course.assign_attributes(session[:course_params])
+
+    @course_list = Course.pluck(:course_name)
+
+    @course.current_step = session[:step]
+
+    if @course.valid?
+      if params[:back_button]
+        @course.previous_step
+      elsif params[:add_prerequisite]
+        if Course.where(course_name: params[:course][:prerequisite_course_name]).empty?
+          @course.errors.add(:base, "Course '#{params[:course][:prerequisite_course_name]}' does NOT exist")
+        elsif session[:prerequisite].include? params[:course][:prerequisite_course_name]
+          @course.errors.add(:base, "Prerequisite course already added")
+        else
+          Prerequisite.create(course_id: @course.id, prerequisite_course_id: Course.find_by(course_name: params[:course][:prerequisite_course_name]).id)
+          session[:prerequisite] << params[:course][:prerequisite_course_name]
+          @course.errors.add(:base, "Prerequisite course added")
+        end
+      elsif params[:remove_prerequisite]
+        @course.prerequisite_courses.delete(Course.find_by(course_name: params[:remove_prerequisite]))
+        session[:prerequisite].delete(params[:remove_prerequisite])
+        @course.errors.add(:base, "Prerequisite course removed")
+      elsif @course.last_step?
+        if @course.update(session[:course_params])
+          session[:step] = session[:course_params] = session[:prerequisite] = nil
+          redirect_to department_courses_path(@department), notice: "Course was successfully updated."
+          return
+        end
+      else 
+        @course.next_step
       end
+      
+      session[:step] = @course.current_step
+
+      render "edit"
     end
   end
 
@@ -95,6 +143,6 @@ class CoursesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def course_params
-      params.require(:course).permit(:course_name, :credit_hour, :ects, :course_id, :department_id)
+      params.require(:course).permit(:course_name, :credit_hour, :ects, :department_id)
     end
 end
