@@ -1,11 +1,9 @@
 class Course < ApplicationRecord
   belongs_to :department
 
-  # has_many :prerequisites, foreign_key: :course_id, class: :prerequisite, dependent: destroy
-  # has_many :prerequisite_b, foreign_key: :prerequisite_course_id, class: :prerequisite, dependent: destroy
+  has_many :prerequisites, foreign_key: :course_id, class_name: 'Prerequisite', dependent: :destroy
 
-  # has_many :course_prerequisites, through: :prerequisite_a, source: :course
-  # has_many :courses_with_this_as_prerequisite, through: :prerequisite_b, source: :prerequisite_course
+  has_many :prerequisite_courses, through: :prerequisites, source: :prerequisite_course
 
   validates :course_name, presence: true, uniqueness: true, :if => lambda { |course| course.current_step == "course_info" } 
   validates :credit_hour, presence: true
@@ -35,5 +33,9 @@ class Course < ApplicationRecord
 
   def last_step? 
     current_step == steps.last
+  end
+
+  def prerequisite_step?
+    current_step == steps.second
   end
 end

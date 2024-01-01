@@ -3,7 +3,7 @@ class DepartmentsController < ApplicationController
 
   # GET /departments or /departments.json
   def index
-    @departments = Department.all
+    @departments = Department.all.order('dept_name')
   end
 
   # GET /departments/1 or /departments/1.json
@@ -49,10 +49,10 @@ class DepartmentsController < ApplicationController
 
   # DELETE /departments/1 or /departments/1.json
   def destroy
-    @department.destroy
+    # @department.destroy
 
     respond_to do |format|
-      format.html { redirect_to departments_url, notice: "Department was successfully destroyed." }
+      format.html { redirect_to departments_url, notice: "Can NOT delete department." }
       format.json { head :no_content }
     end
   end
