@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_02_082152) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_02_124612) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
@@ -38,6 +38,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_02_082152) do
     t.datetime "updated_at", null: false
     t.index ["course_id"], name: "index_prerequisites_on_course_id"
     t.index ["prerequisite_course_id"], name: "index_prerequisites_on_prerequisite_course_id"
+  end
+
+  create_table "sections", force: :cascade do |t|
+    t.string "section_name"
+    t.bigint "course_id", null: false
+    t.bigint "teacher_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_sections_on_course_id"
+    t.index ["teacher_id"], name: "index_sections_on_teacher_id"
   end
 
   create_table "students", force: :cascade do |t|
@@ -83,5 +93,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_02_082152) do
   add_foreign_key "courses", "departments"
   add_foreign_key "prerequisites", "courses"
   add_foreign_key "prerequisites", "courses", column: "prerequisite_course_id"
+  add_foreign_key "sections", "courses"
+  add_foreign_key "sections", "users", column: "teacher_id"
   add_foreign_key "students", "departments"
 end
