@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_22_103036) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_02_082152) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "hstore"
   enable_extension "plpgsql"
 
   create_table "courses", force: :cascade do |t|
@@ -44,9 +45,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_22_103036) do
     t.string "father_name", null: false
     t.string "last_name", null: false
     t.string "gender", null: false
-    t.string "martial_status", null: false
+    t.string "phone", null: false
+    t.hstore "address", null: false
     t.string "nationality", null: false
     t.date "dob", null: false
+    t.string "martial_status", null: false
     t.integer "class_year", default: 1, null: false
     t.integer "semester", default: 1, null: false
     t.string "admission_type", null: false

@@ -1,10 +1,19 @@
-<h1>Editing student</h1>
+<div class="d-flex flex-column align-items-center mb-4" style="margin-top: 60px">
+  <h3 class="mb-4" style="">Editing student</h3>
 
-<%= render "form", student: @student %>
+  <div class="w-100 d-flex flex-column align-items-center">
+    <div class="w-100" style="max-width: 700px;">
 
-<br>
+      <div class="" >
+        <%= link_to department_students_path(@department), class: "link-underline link-underline-opacity-0" do %>
+          <i class="bi bi-arrow-left"></i>
+          <span class="fs-5">Back to <%= @department.dept_name %></span>
+        <% end %>
+      </div>
 
-<div>
-  <%= link_to "Show this student", @student %> |
-  <%= link_to "Back to students", students_path %>
+      <%= render "form", student: @student %>
+
+      <br>
+    </div>
+  </div>
 </div>

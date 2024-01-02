@@ -1,4 +1,4 @@
-<%= bootstrap_form_with(model: student) do |form| %>
+<%= bootstrap_form_with(model: [@department, student], local: true) do |form| %>
   <div class="bg-white p-4 my-4">
     <% if student.errors.any? %>
       <div style="color: red">
@@ -25,29 +25,53 @@
     </div>
 
     <div class="row g-3">
-      <div class="col-md-6">
-        <%= form.select :gender, ["Male", "Female"], {:prompt => "--select gender--"}, placeholder: "Gender" %>
-      </div>
-
-      <div class="col-md-6">
-        <%= form.select :martial_status, ["Single", "Married"], {:prompt => "--select martial status--"}, placeholder: "Martial Status" %>
+      <div class="col-md-5">
+          <%= form.select :admission_type, ["Regular", "Extension"], {:prompt => "--select admission type--"}, placeholder: "Admission Type", class:"form-control" %>
       </div>
     </div>
+<%# Address Fields STARTS HERE %>
+    
+    <div class="row g-3">
+      <%= form.fields_for :address do |addr| %>
+        <div class="col-md-4">
+          <%= addr.text_field :woreda, placeholder: "Woreda", class: "form-control" %>
+        </div>
+        <div class="col-md-4">
+          <%= addr.text_field :city, placeholder: "City", class: "form-control" %>
+        </div>
+        <div class="col-md-4">
+          <%= addr.text_field :region, placeholder: "Region", class: "form-control" %>
+        </div>
+      <% end %>
+    </div>
+
+<%# Address Fields ENDS HERE %>
 
     <div class="row g-3">
       <div class="col-md-6">
-        <%= form.select :nationality, ["Ethiopian", "Other"], {:prompt => "--select nationality--"}, placeholder: "Nationality" %>
+        <%= form.select :gender, ["Male", "Female"], {:prompt => "--select gender--"}, placeholder: "Gender", class: "form-control" %>
+      </div>
+      <div class="col-md-6">
+        <%= form.text_field :phone, placeholder: "Phone Number", class: "form-control" %>
       </div>
     </div>
 
     <div class="row g-3">
       <div class="col-md-4">
-        <%= form.date_field :dob, placeholder: "Date of Birth" %>
+        <%= form.date_field :dob, placeholder: "Date of Birth", class: "form-control" %>
+      </div>
+
+      <div class="col-md-4">
+        <%= form.select :nationality, ["Ethiopian", "Other"], {:prompt => "--select nationality--"}, placeholder: "Nationality", class: "form-control" %>
+      </div>
+
+      <div class="col-md-4">
+        <%= form.select :martial_status, ["Single", "Married"], {:prompt => "--select martial status--"}, placeholder: "Martial Status", class: "form-control" %>
       </div>
     </div>
 
     <div>
-      <%= form.submit "Enroll Student", class: "btn btn-primary" %>
+      <%= form.submit class: "btn btn-primary" %>
     </div>
   </div>
 <% end %>

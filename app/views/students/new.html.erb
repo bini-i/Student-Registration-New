@@ -4,6 +4,13 @@
   <div class="w-100 d-flex flex-column align-items-center">
     <div class="w-100" style="max-width: 700px;">
 
+      <div class="" >
+        <%= link_to department_students_path(@department), class: "link-underline link-underline-opacity-0" do %>
+          <i class="bi bi-arrow-left"></i>
+          <span class="fs-5">Back to <%= @department.dept_name %></span>
+        <% end %>
+      </div>
+
       <%= render "form", student: @student %>
 
       <br>

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   # nested route for departments and courses
   resources :departments do
     resources :courses
+    resources :students
   end
 
   # a route to course destroy form action
@@ -20,7 +21,6 @@ Rails.application.routes.draw do
     patch 'users' => 'devise/registrations#update', :as => 'user_registration'            
   end
 
-  resources :students
   # resources :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 end

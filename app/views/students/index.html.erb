@@ -1,14 +1,47 @@
+<div class="d-flex mb-4">
+  <h2 class="font-weight-normal"><%= @department.dept_name %>'s students</h2>
+  
+  <%= link_to "Add student", new_department_student_path(@department), class: "btn btn-primary btn-sm d-inline-flex align-items-center ms-auto" %>
+</div>
+
 <p style="color: green"><%= notice %></p>
 
-<h1>Students</h1>
-
-<div id="students">
-  <% @students.each do |student| %>
-    <%= render student %>
-    <p>
-      <%= link_to "Show this student", student %>
-    </p>
+<div class="mt-3 mb-4">
+  <%= link_to departments_path, class: "link-underline link-underline-opacity-0" do %>
+    <i class="bi bi-arrow-left"></i>
+    <span class="fs-5">Back to departments</span>
   <% end %>
 </div>
 
-<%= link_to "New student", new_student_path %>
+<div class="table-responsive fs-5">
+  <table class="table table-sm table-striped align-middle">
+    <thead>
+      <tr>
+        <th scope="col">No.</th>
+        <th scope="col">Name</th>
+        <th scope="col">Class Year</th>
+        <th scope="col">Semester</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody class="accordion" id="accordionExample">
+      <% @students.each_with_index do |student, index| %>
+        <tr class="" style="height: 50px">
+          <td><%= index+1 %></td>
+          <td><%= student.full_name %></td>
+          <td><%= student.class_year %></td>
+          <td><%= student.semester %></td>
+          <td>
+            <%= link_to "Edit", edit_department_student_path(@department, student), class: "btn btn-outline-primary btn-sm" %>
+            <%= link_to "Detail", department_student_path(@department, student), class: "btn btn-outline-primary btn-sm" %>
+          </td>
+        </tr>
+
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<% if @students.empty? %>
+  <%= render partial: "placeholder" %>
+<% end %>

@@ -2,31 +2,31 @@ class CoursesController < ApplicationController
   before_action :get_department
   before_action :set_course, only: %i[ show edit update destroy_form destroy ]
 
-  # GET /courses or /courses.json
+  # GET /department/1/courses or /department/1/courses.json
   def index
     session[:step] = session[:course_params] = session[:prerequisite] = nil
     @courses = @department.courses
   end
 
-  # GET /courses/1 or /courses/1.json
+  # GET /department/1/courses/1 or /department/1/courses/1.json
   def show
     redirect_to department_courses_path(@department)
   end
 
-  # GET /courses/new
+  # GET /department/1/courses/new
   def new
     session[:course_params] ||= {}
     session[:prerequisite] ||= []
     @course = @department.courses.build
   end
 
-  # GET /courses/1/edit
+  # GET /department/1/courses/1/edit
   def edit
     session[:course_params] ||= {}
     session[:prerequisite] ||= @course.prerequisite_courses.pluck(:course_name)
   end
 
-  # POST /courses or /courses.json
+  # POST /department/1/courses or /department/1/courses.json
   def create
     session[:course_params].deep_merge!(course_params) if params[:course]
     @course = @department.courses.build(session[:course_params])
@@ -69,7 +69,7 @@ class CoursesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /courses/1 or /courses/1.json
+  # PATCH/PUT /department/1/courses/1 or /department/1/courses/1.json
   def update
     session[:course_params].deep_merge!(course_params) if params[:course]
     @course.assign_attributes(session[:course_params])
@@ -115,7 +115,7 @@ class CoursesController < ApplicationController
     @user = User.new
   end
   
-  # DELETE /courses/1 or /courses/1.json
+  # DELETE /department/1/courses/1 or /department/1/courses/1.json
   def destroy
     # find the user from db, if not found(email is wrong) set it to new user object 
     @user = User.find_for_authentication(email: params[:user][:email])

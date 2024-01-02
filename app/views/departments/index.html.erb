@@ -34,7 +34,8 @@
           <td><%= index+1 %></td>
           <td><%= department.dept_name %></td>
           <td>
-            <%= link_to "view", department_courses_path(department), class: "btn btn-outline-primary btn-sm" %>
+            <%= link_to "Courses", department_courses_path(department), class: "btn btn-outline-primary btn-sm" %>
+            <%= link_to "Students", department_students_path(department), class: "btn btn-outline-primary btn-sm" %>
             <%= link_to "edit", edit_department_path(department), data: {controller: "turbo"}, class: "btn btn-outline-primary btn-sm" %>
           </td>
         </tr>

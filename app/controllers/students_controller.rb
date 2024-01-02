@@ -1,34 +1,36 @@
 class StudentsController < ApplicationController
+  before_action :get_department
   before_action :set_student, only: %i[ show edit update destroy ]
 
-  # GET /students or /students.json
+  # GET /department/1/students or /department/1/students.json
   def index
     @students = Student.all
   end
 
-  # GET /students/1 or /students/1.json
+  # GET /department/1/students/1 or /department/1/students/1.json
   def show
+    
   end
 
-  # GET /students/new
+  # GET /department/1/students/new
   def new
-    @student = Student.new
+    @student = @department.students.build
     unless current_user.registrar_desk?
       redirect_to root_path, notice: "Access denied"
     end
   end
 
-  # GET /students/1/edit
+  # GET /department/1/students/1/edit
   def edit
   end
 
-  # POST /students or /students.json
+  # POST /department/1/students or /department/1/students.json
   def create
-    @student = Student.new(student_params)
+    @student = @department.students.build(student_params)
 
     respond_to do |format|
       if @student.save
-        format.html { redirect_to student_url(@student), notice: "Student was successfully created." }
+        format.html { redirect_to department_students_path(@department), notice: "Student was successfully created." }
         format.json { render :show, status: :created, location: @student }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -37,11 +39,11 @@ class StudentsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /students/1 or /students/1.json
+  # PATCH/PUT /department/1/students/1 or /department/1/students/1.json
   def update
     respond_to do |format|
       if @student.update(student_params)
-        format.html { redirect_to student_url(@student), notice: "Student was successfully updated." }
+        format.html { redirect_to department_students_path(@department), notice: "Student was successfully updated." }
         format.json { render :show, status: :ok, location: @student }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -50,7 +52,7 @@ class StudentsController < ApplicationController
     end
   end
 
-  # DELETE /students/1 or /students/1.json
+  # DELETE /department/1/students/1 or /department/1/students/1.json
   def destroy
     @student.destroy
 
@@ -61,6 +63,10 @@ class StudentsController < ApplicationController
   end
 
   private
+    def get_department
+      @department = Department.find(params[:department_id])
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_student
       @student = Student.find(params[:id])
@@ -68,6 +74,6 @@ class StudentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def student_params
-      params.require(:student).permit(:first_name, :father_name, :last_name, :gender, :martial_status, :nationality, :dob)
+      params.require(:student).permit(:first_name, :father_name, :last_name, :gender, :phone, :nationality, :dob, :martial_status, :admission_type, address: [:woreda, :city, :region])
     end
 end

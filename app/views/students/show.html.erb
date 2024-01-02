@@ -3,8 +3,6 @@
 <%= render @student %>
 
 <div>
-  <%= link_to "Edit this student", edit_student_path(@student) %> |
-  <%= link_to "Back to students", students_path %>
-
-  <%= button_to "Destroy this student", @student, method: :delete %>
+  <%= link_to "Edit this student", edit_department_student_path(@department, @student) %> |
+  <%= link_to "Back to students", department_students_path(@department) %>
 </div>
