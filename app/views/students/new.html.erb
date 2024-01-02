@@ -1,9 +1,12 @@
-<h1>New student</h1>
+<div class="d-flex flex-column align-items-center mb-4" style="margin-top: 60px">
+  <h3 class="mb-4" style="">Enrolling new student</h3>
 
-<%= render "form", student: @student %>
+  <div class="w-100 d-flex flex-column align-items-center">
+    <div class="w-100" style="max-width: 700px;">
 
-<br>
+      <%= render "form", student: @student %>
 
-<div>
-  <%= link_to "Back to students", students_path %>
+      <br>
+    </div>
+  </div>
 </div>

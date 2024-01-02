@@ -1,52 +1,53 @@
 <%= bootstrap_form_with(model: student) do |form| %>
-  <% if student.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(student.errors.count, "error") %> prohibited this student from being saved:</h2>
+  <div class="bg-white p-4 my-4">
+    <% if student.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(student.errors.count, "error") %> prohibited this student from being saved:</h2>
 
-      <ul>
-        <% student.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+        <ul>
+          <% student.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="row g-3">
+      <div class="col-md-4">
+          <%= form.text_field :first_name, placeholder: "First Name", class:"form-control" %>
+      </div>
+      <div class="col-md-4">
+          <%= form.text_field :father_name, placeholder: "Father Name", class:"form-control" %>
+      </div>
+      <div class="col-md-4">
+          <%= form.text_field :last_name, placeholder: "Last Name", class:"form-control" %>
+      </div>
     </div>
-  <% end %>
 
-  <div>
-    <%#= form.label :first_name, style: "display: block" %>
-    <%= form.text_field :first_name %>
-  </div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <%= form.select :gender, ["Male", "Female"], {:prompt => "--select gender--"}, placeholder: "Gender" %>
+      </div>
 
-  <div>
-    <%#= form.label :father_name, style: "display: block" %>
-    <%= form.text_field :father_name %>
-  </div>
+      <div class="col-md-6">
+        <%= form.select :martial_status, ["Single", "Married"], {:prompt => "--select martial status--"}, placeholder: "Martial Status" %>
+      </div>
+    </div>
 
-  <div>
-    <%#= form.label :last_name, style: "display: block" %>
-    <%= form.text_field :last_name %>
-  </div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <%= form.select :nationality, ["Ethiopian", "Other"], {:prompt => "--select nationality--"}, placeholder: "Nationality" %>
+      </div>
+    </div>
 
-  <div>
-    <%#= form.label :gender, style: "display: block" %>
-    <%= form.text_field :gender %>
-  </div>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <%= form.date_field :dob, placeholder: "Date of Birth" %>
+      </div>
+    </div>
 
-  <div>
-    <%#= form.label :martial_status, style: "display: block" %>
-    <%= form.text_field :martial_status %>
-  </div>
-
-  <div>
-    <%#= form.label :nationality, style: "display: block" %>
-    <%= form.text_field :nationality %>
-  </div>
-
-  <div>
-    <%#= form.label :dob, style: "display: block" %>
-    <%= form.date_field :dob %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+    <div>
+      <%= form.submit "Enroll Student", class: "btn btn-primary" %>
+    </div>
   </div>
 <% end %>

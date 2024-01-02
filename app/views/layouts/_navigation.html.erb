@@ -17,7 +17,7 @@
         
         <% if current_user.registrar_desk? %>
           <li class="nav-item">
-            <%= link_to "Register Students",  new_student_path, class: "px-2 custom-nav-link nav-link #{'active' if current_page? root_path}" %>
+            <%= link_to "Register Students",  new_student_path, class: "px-2 custom-nav-link nav-link #{'active' if current_page? new_student_path}" %>
 
             <%# <a class="nav-link" href="#">Register Students</a> %>
           </li>
@@ -32,6 +32,9 @@
 
               <li class="nav-item">
                 <%= link_to "Departments", departments_path, class: "px-2 custom-nav-link nav-link #{'active' if current_page? departments_path}" if current_user.dean? %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Students", students_path, class: "px-2 custom-nav-link nav-link #{'active' if current_page? students_path}" if current_user.dean? %>
               </li>
 
               <li class="nav-item">
