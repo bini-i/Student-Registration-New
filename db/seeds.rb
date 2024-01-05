@@ -52,4 +52,17 @@ Student.destroy_all
     )
 end
 
-puts "300 courses created"
+puts "300 students created"
+
+20.times do
+    User.create!(
+        first_name: Faker::Name.unique.first_name,
+        father_name: Faker::Name.unique.first_name,
+        last_name: Faker::Name.unique.first_name,
+        email: "#{Faker::Name.unique.last_name}@email.com",
+        password: Random.rand(100000..999999),
+        role: 2,
+    )
+end
+
+puts "20 teachers created"
