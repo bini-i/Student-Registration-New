@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_02_124612) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_05_122537) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
@@ -42,6 +42,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_02_124612) do
 
   create_table "sections", force: :cascade do |t|
     t.string "section_name"
+    t.string "semester", null: false
     t.bigint "course_id", null: false
     t.bigint "teacher_id", null: false
     t.datetime "created_at", null: false
@@ -66,6 +67,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_02_124612) do
     t.bigint "department_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "section"
     t.index ["department_id"], name: "index_students_on_department_id"
   end
 

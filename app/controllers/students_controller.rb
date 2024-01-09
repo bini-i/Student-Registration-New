@@ -1,10 +1,11 @@
 class StudentsController < ApplicationController
   before_action :get_department
+  before_action :get_department_count
   before_action :set_student, only: %i[ show edit update destroy ]
 
   # GET /department/1/students or /department/1/students.json
   def index
-    @students = @department.students
+    @students = filtered_students || @department.students.order('first_name')
   end
 
   # GET /department/1/students/1 or /department/1/students/1.json
@@ -75,5 +76,14 @@ class StudentsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def student_params
       params.require(:student).permit(:first_name, :father_name, :last_name, :gender, :phone, :nationality, :dob, :martial_status, :admission_type, address: [:woreda, :city, :region])
+    end
+
+    def filtered_students
+      return unless params[:year].present?
+      Student.year_students(@department, params[:year])
+    end
+
+    def get_department_count
+      @department_count = @department.students.pluck(:class_year).uniq.size
     end
 end

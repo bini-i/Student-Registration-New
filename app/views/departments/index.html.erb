@@ -35,7 +35,17 @@
           <td><%= department.dept_name %></td>
           <td>
             <%= link_to "Courses", department_courses_path(department), class: "btn btn-outline-primary btn-sm" %>
-            <%= link_to "Students", department_students_path(department), class: "btn btn-outline-primary btn-sm" %>
+            <span class="dropdown dropend">
+              <%= link_to "Students", department_students_path(department), class: "btn btn-outline-primary btn-sm dropdown-toggle", role: "button", data: {"bs-toggle": "dropdown"}, "aria-expanded": "false" %>
+
+              <ul class="dropdown-menu dropdown-menu-dark">
+                <% department.students.pluck(:class_year).uniq.sort.each do |year| %>
+                  <li>
+                    <%= link_to "#{year} Year", year_students_path(department, year), class: "dropdown-item" %>
+                  </li>
+                <% end %>
+              </ul>
+            </span>
             <%= link_to "edit", edit_department_path(department), data: {controller: "turbo"}, class: "btn btn-outline-primary btn-sm" %>
           </td>
         </tr>

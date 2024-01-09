@@ -1,6 +1,21 @@
 <div class="d-flex mb-4">
-  <h2 class="font-weight-normal"><%= @department.dept_name %>'s students</h2>
-  
+  <div class="d-flex">
+    <h4 class="font-weight-normal"><%= @department.dept_name %> Department</h4>
+    <div class="d-flex mx-3">
+      <div class="dropdown dropend">
+        <span class="badge rounded-pill text-bg-info border-0 btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><%= params[:year] ? "#{params[:year]} Year" : "ALL" %> students</span>
+        <ul class="dropdown-menu">
+          <% @department_count.times do |year| %>
+            <li>
+              <%= link_to "#{year+1} Year", year_students_path(@department, year+1), class: "dropdown-item" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
   <%= link_to "Add student", new_department_student_path(@department), class: "btn btn-primary btn-sm d-inline-flex align-items-center ms-auto" %>
 </div>
 

@@ -19,4 +19,6 @@ class Student < ApplicationRecord
   def full_name
     [first_name, father_name, last_name].join(' ')
   end
+
+  scope :year_students, -> (department, year) { department.students.where(class_year: year).order('first_name') }
 end
