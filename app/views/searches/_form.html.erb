@@ -1,0 +1,68 @@
+<%= bootstrap_form_with(model: [department, @search]) do |form| %>
+  <div class="bg-white p-4 my-4">
+    <h6 class="mb-3">Search detail</h6>
+
+    <% if @search.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(@search.errors.count, "error") %> prohibited this department from being saved:</h2>
+
+        <ul>
+          <% @search.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%# ---- Tabs content starts here ---- %>
+
+    <div class="tab-content" id="ex1-content">
+      <div
+        class="tab-pane fade show active"
+        id="ex1-tabs-1"
+        role="tabpanel"
+        aria-labelledby="ex1-tab-1"
+      >
+        <div class="col-md-6">
+            <%= form.text_field :student_id, placeholder: "Student ID", class:"form-control" %>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+        <div class="row g-3">
+          <div class="col-md-6">
+              <%= form.text_field :first_name, placeholder: "First Name", class:"form-control" %>
+          </div>
+          <div class="col-md-6">
+              <%= form.text_field :father_name, placeholder: "Father Name", class:"form-control" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="ex1-tabs-3" role="tabpanel" aria-labelledby="ex1-tab-3">
+        <div class="col-md-6">
+            <%= form.select :admission_year, @admission_years.map{|year| [year, year]}, {:prompt => "--select admission year--"}, placeholder: "Admission Year", class:"form-control" %>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="ex1-tabs-4" role="tabpanel" aria-labelledby="ex1-tab-4">
+        <div class="col-md-6">
+            <%= form.select :class_year, @year_count.times.map {|year| ["#{year+1} year", year+1]}, {:prompt => "--select class year--"}, placeholder: "Class Year", class:"form-control" %>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="ex1-tabs-5" role="tabpanel" aria-labelledby="ex1-tab-5">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <%= form.select :status, Student.statuses.keys.map {|w| [w.humanize, w]}, {:prompt => "--select status--"}, placeholder: "Status", class: "form-control" %>
+            </div>
+          </div>
+      </div>
+    </div>
+
+    <%# ---- Tabs content ends here ---- %>
+
+  <div>
+    <%= form.submit "Search", class: "btn btn-primary" %>
+  </div>
+<% end %>

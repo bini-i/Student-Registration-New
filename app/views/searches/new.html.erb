@@ -1,0 +1,83 @@
+<div class="d-flex flex-column align-items-center" style="margin-top: 80px">
+  <h3 class="text-primary"><%= @department.dept_name %> Department</h3>
+  <h4 class="mb-5" style="">Advanced Search</h4>
+  <div class="w-100 d-flex flex-column align-items-center">
+    <div class="w-100" style="max-width: 512px;">
+      <div class="">
+        <%= link_to searches_path, class: "link-underline link-underline-opacity-0" do %>
+          <i class="bi bi-arrow-left"></i>
+          <span class="fs-5">Back</span>
+
+          <%# ---- Tabs navs starts here ---- %>
+          <ul class="nav nav-tabs my-2" id>
+            <li class="nav-item" role="presentation">
+              <a
+                data-mdb-tab-init
+                class="nav-link active fs-6"
+                id="ex1-tab-1"
+                href="#ex1-tabs-1"
+                role="tab"
+                aria-controls="ex1-tabs-1"
+                aria-selected="true"
+                >By Student ID</a
+              >
+            </li>
+            <li class="nav-item" role="presentation">
+              <a
+                data-mdb-tab-init
+                class="nav-link fs-6"
+                id="ex1-tab-2"
+                href="#ex1-tabs-2"
+                role="tab"
+                aria-controls="ex1-tabs-2"
+                aria-selected="false"
+                >By Name</a
+              >
+            </li>
+            <li>
+              <a
+                data-mdb-tab-init
+                class="nav-link fs-6"
+                id="ex1-tab-3"
+                href="#ex1-tabs-3"
+                role="tab"
+                aria-controls="ex1-tabs-3"
+                aria-selected="false"
+                >By Admission Year</a
+              >
+            </li>
+            <li>
+              <a
+                data-mdb-tab-init
+                class="nav-link fs-6"
+                id="ex1-tab-4"
+                href="#ex1-tabs-4"
+                role="tab"
+                aria-controls="ex1-tabs-4"
+                aria-selected="false"
+                >By Class Year</a
+              >
+            </li>
+            <li>
+              <a
+                data-mdb-tab-init
+                class="nav-link fs-6"
+                id="ex1-tab-4"
+                href="#ex1-tabs-5"
+                role="tab"
+                aria-controls="ex1-tabs-5"
+                aria-selected="false"
+                >By Status</a
+              >
+            </li>
+          </ul>
+    <%# ---- Tabs navs ends here ---- %>
+        <% end %>
+      </div>
+
+      <%= render "form", department: @department %>
+
+      <br>
+    </div>
+  </div>
+</div>

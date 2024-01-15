@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_05_122537) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_10_142209) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
@@ -38,6 +38,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_05_122537) do
     t.datetime "updated_at", null: false
     t.index ["course_id"], name: "index_prerequisites_on_course_id"
     t.index ["prerequisite_course_id"], name: "index_prerequisites_on_prerequisite_course_id"
+  end
+
+  create_table "searches", force: :cascade do |t|
+    t.string "student_id"
+    t.string "first_name"
+    t.string "father_name"
+    t.integer "admission_year"
+    t.integer "class_year"
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "sections", force: :cascade do |t|
@@ -68,6 +79,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_05_122537) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "section"
+    t.integer "admission_year", null: false
+    t.integer "status", null: false
     t.index ["department_id"], name: "index_students_on_department_id"
   end
 

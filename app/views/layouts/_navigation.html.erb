@@ -18,6 +18,8 @@
         <% if current_user.registrar_desk? %>
           <li class="nav-item">
             <%= link_to "Register Students",  departments_path, class: "px-2 custom-nav-link nav-link #{'active' if current_page? departments_path}" %>
+            
+            <%= link_to "Search Students",  searches_path, class: "px-2 custom-nav-link nav-link #{'active' if current_page? searches_path}" %>
 
             <%# <a class="nav-link" href="#">Register Students</a> %>
           </li>

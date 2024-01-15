@@ -48,7 +48,9 @@ Student.destroy_all
             region: ""
         },
         class_year: Random.rand(1..5),
-        semester: Random.rand(1..2)
+        semester: Random.rand(1..2),
+        admission_year: Random.rand(2000...2016),
+        status: Random.rand(0..2)
     )
 end
 
@@ -59,9 +61,9 @@ puts "300 students created"
         first_name: Faker::Name.unique.first_name,
         father_name: Faker::Name.unique.first_name,
         last_name: Faker::Name.unique.first_name,
-        email: "#{Faker::Name.unique.last_name}@email.com",
+        email: "#{Faker::Name.unique.last_name}#{Random.rand(1..9999)}@email.com",
         password: Random.rand(100000..999999),
-        role: 2,
+        role: Random.rand(0...7),
     )
 end
 

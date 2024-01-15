@@ -7,7 +7,10 @@ Rails.application.routes.draw do
   resources :departments do
     resources :courses
     resources :students
+    resources :searches, only: [ :new, :create, :show ]
   end
+
+  get 'searches', to: "searches#index", as: 'searches'
 
   # a route to course destroy form action
   delete 'departments/:department_id/delete_course/:id', to: 'courses#destroy_form', as: 'course_destroy_form'
@@ -22,10 +25,13 @@ Rails.application.routes.draw do
   end
 
   # custom dynamic route for students of a given year
+  get 'departments/:department_id/students/class_year/:class_year', to: 'students#index', as: 'class_year_students'
+
   get 'departments/:department_id/students/year/:year', to: 'students#index', as: 'year_students'
 
   get 'departments/:department_id/students/year/:year/section/:section', to: 'students#section', as: 'section_students'
 
+  
   # resources :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 end
