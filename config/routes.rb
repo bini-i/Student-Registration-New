@@ -29,8 +29,8 @@ Rails.application.routes.draw do
 
   get 'departments/:department_id/students/year/:year', to: 'students#index', as: 'year_students'
 
-  get 'departments/:department_id/students/year/:year/section/:section', to: 'students#section', as: 'section_students'
-
+  # custom dynamic route for students of a given section
+  get 'departments/:department_id/students/year/:year/section/:section', to: 'students#index', as: 'section_students'
   
   # resources :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

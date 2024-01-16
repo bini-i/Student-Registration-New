@@ -1,4 +1,6 @@
 class Student < ApplicationRecord
+  enum status: [ :active, :withdrawn, :completed]
+
   belongs_to :department
 
   validates :first_name, presence: true
@@ -20,5 +22,7 @@ class Student < ApplicationRecord
     [first_name, father_name, last_name].join(' ')
   end
 
-  scope :year_students, -> (department, year) { department.students.where(class_year: year).order('first_name') }
+  scope :year_students, -> (department, year) { department.students.where(admission_year: year).order('first_name') }
+
+  scope :section_students, -> (department, year, section) { department.students.where(admission_year: year, section: section).order('first_name') }
 end

@@ -49,7 +49,8 @@ Student.destroy_all
         },
         class_year: Random.rand(1..5),
         semester: Random.rand(1..2),
-        admission_year: Random.rand(2000...2016),
+        admission_year: Random.rand(2012...2016),
+        section: ["A", "B", "C"].sample,
         status: Random.rand(0..2)
     )
 end

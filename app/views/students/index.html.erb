@@ -1,22 +1,54 @@
-<div class="d-flex mb-4">
-  <div class="d-flex">
+<div class="d-flex">
+  <div class="d-flex w-100">
     <h4 class="font-weight-normal"><%= @department.dept_name %> Department</h4>
-    <div class="d-flex mx-3">
+    <div class="d-flex mx-3 flex-grow-1">
       <div class="dropdown dropend">
-        <span class="badge rounded-pill text-bg-info border-0 btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><%= params[:year] ? "#{params[:year]} Year" : "ALL" %> students</span>
+        <span class="badge rounded-pill text-bg-info border-0 btn btn-secondary dropdown-toggle px-3 py-2" type="button" data-bs-toggle="dropdown" aria-expanded="false"><%= params[:year] ? "#{params[:year]} entry" : "ALL Students" %></span>
         <ul class="dropdown-menu">
-          <% @department_count.times do |year| %>
             <li>
-              <%= link_to "#{year+1} Year", year_students_path(@department, year+1), class: "dropdown-item" %>
+              <%= link_to "ALL", department_students_path(@department), class: "dropdown-item" %>
+            </li>
+          <% @admission_years.each do |year| %>
+            <li>
+              <%= link_to "#{year} entry", year_students_path(@department, year), class: "dropdown-item" %>
             </li>
           <% end %>
         </ul>
       </div>
 
+      <% if params[:year] %>
+        <ul class="nav nav-tabs mb-3 ms-auto" id="myTab0" role="tablist">
+            <li class="nav-item d-grid align-items-center" role="presentation">
+              <%= link_to "ALL", year_students_path(@department, params[:year]), class: "link-underline link-underline-opacity-0 mx-2 py-2", type: "button", role: "tab", "aria-selected": "true" %>
+            </li>
+          <% @sections.each do |section| %>
+            <li class="nav-item d-grid align-items-center" role="presentation">
+              <%= link_to "Section #{section}", section_students_path(@department, params[:year], section), class: "link-underline link-underline-opacity-0 mx-2 py-2", type: "button", role: "tab", "aria-selected": "true" %>
+            </li>
+          <% end %>
+          <!--
+          <li class="nav-item" role="presentation">
+            <button
+              data-mdb-tab-init
+              class="nav-link"
+              id="profile-tab0"
+              data-mdb-target="#profile0"
+              type="button"
+              role="tab"
+              aria-controls="profile"
+              aria-selected="false"
+            >
+              Profile
+            </button>
+          </li>
+          -->
+        </ul>
+      <% end %>
+
     </div>
   </div>
 
-  <%= link_to "Add student", new_department_student_path(@department), class: "btn btn-primary btn-sm d-inline-flex align-items-center ms-auto" %>
+  <%#= link_to "Add student", new_department_student_path(@department), class: "btn btn-primary btn-sm d-inline-flex align-items-center ms-auto" %>
 </div>
 
 <p style="color: green"><%= notice %></p>
@@ -36,6 +68,8 @@
         <th scope="col">Name</th>
         <th scope="col">Class Year</th>
         <th scope="col">Semester</th>
+        <th scope="col">Admission Year</th>
+        <th scope="col">Section</th>
         <th scope="col"></th>
       </tr>
     </thead>
@@ -46,6 +80,8 @@
           <td><%= student.full_name %></td>
           <td><%= student.class_year %></td>
           <td><%= student.semester %></td>
+          <td><%= student.admission_year %></td>
+          <td><%= student.section %></td>
           <td>
             <%= link_to "Edit", edit_department_student_path(@department, student), class: "btn btn-outline-primary btn-sm" %>
             <%= link_to "Detail", department_student_path(@department, student), class: "btn btn-outline-primary btn-sm" %>
