@@ -19,36 +19,20 @@
       <% if params[:year] %>
         <ul class="nav nav-tabs mb-3 ms-auto" id="myTab0" role="tablist">
             <li class="nav-item d-grid align-items-center" role="presentation">
-              <%= link_to "ALL", year_students_path(@department, params[:year]), class: "link-underline link-underline-opacity-0 mx-2 py-2", type: "button", role: "tab", "aria-selected": "true" %>
+              <%= link_to "ALL", year_students_path(@department, params[:year]), class: "link-underline link-underline-opacity-0 px-2 py-2 #{"text-primary-emphasis bg-warning" unless params[:section]}", type: "button", role: "tab", "aria-selected": "true" %>
             </li>
           <% @sections.each do |section| %>
             <li class="nav-item d-grid align-items-center" role="presentation">
-              <%= link_to "Section #{section}", section_students_path(@department, params[:year], section), class: "link-underline link-underline-opacity-0 mx-2 py-2", type: "button", role: "tab", "aria-selected": "true" %>
+              <%= link_to "Section #{section}", section_students_path(@department, params[:year], section), class: "link-underline link-underline-opacity-0 px-2 py-2 #{"text-primary-emphasis bg-warning" if params[:section] == section}", type: "button", role: "tab", "aria-selected": "true" %>
             </li>
           <% end %>
-          <!--
-          <li class="nav-item" role="presentation">
-            <button
-              data-mdb-tab-init
-              class="nav-link"
-              id="profile-tab0"
-              data-mdb-target="#profile0"
-              type="button"
-              role="tab"
-              aria-controls="profile"
-              aria-selected="false"
-            >
-              Profile
-            </button>
-          </li>
-          -->
         </ul>
       <% end %>
 
     </div>
   </div>
 
-  <%#= link_to "Add student", new_department_student_path(@department), class: "btn btn-primary btn-sm d-inline-flex align-items-center ms-auto" %>
+  <%# = link_to "Add student", new_department_student_path(@department), class: "btn btn-primary btn-sm d-inline-flex align-items-center ms-auto" %>
 </div>
 
 <p style="color: green"><%= notice %></p>
