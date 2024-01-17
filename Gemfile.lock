@@ -109,6 +109,8 @@ GEM
       warden (~> 1.2.3)
     devise-bootstrap-views (1.1.0)
     erubi (1.12.0)
+    faker (3.2.2)
+      i18n (>= 1.8.11, < 2)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.1)
@@ -204,6 +206,7 @@ GEM
     rexml (3.2.6)
     rouge (4.2.0)
     rubyzip (2.3.2)
+    selectize-rails (0.12.6)
     selenium-webdriver (4.14.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
@@ -254,12 +257,14 @@ DEPENDENCIES
   debug
   devise (~> 4.9)
   devise-bootstrap-views (~> 1.1)
+  faker
   jbuilder
   jsbundling-rails
   pg (~> 1.1)
   pry-rails
   puma (~> 5.0)
   rails (~> 7.0.8)
+  selectize-rails
   selenium-webdriver
   sprockets-rails
   stimulus-rails

@@ -8,11 +8,18 @@
             <li>
               <%= link_to "ALL", department_students_path(@department), class: "dropdown-item" %>
             </li>
-          <% @admission_years.each do |year| %>
+            <% @admission_years.each do |year| %>
+              <li>
+                <%= link_to "#{year} entry", year_students_path(@department, year), class: "dropdown-item" %>
+              </li>
+            <% end %>
+        </ul>
+
+        <span class="badge rounded-pill text-bg-info border-0 btn btn-secondary dropdown-toggle px-3 py-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">options</span>
+        <ul class="dropdown-menu">
             <li>
-              <%= link_to "#{year} entry", year_students_path(@department, year), class: "dropdown-item" %>
+              <%= link_to "Register new semester", department_students_path(@department), class: "dropdown-item" %>
             </li>
-          <% end %>
         </ul>
       </div>
 

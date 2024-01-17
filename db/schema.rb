@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_10_142209) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_16_114023) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
@@ -38,6 +38,19 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_10_142209) do
     t.datetime "updated_at", null: false
     t.index ["course_id"], name: "index_prerequisites_on_course_id"
     t.index ["prerequisite_course_id"], name: "index_prerequisites_on_prerequisite_course_id"
+  end
+
+  create_table "registrations", force: :cascade do |t|
+    t.bigint "student_id", null: false
+    t.decimal "grade"
+    t.string "academic_year"
+    t.string "class_uear"
+    t.string "semester"
+    t.bigint "teaching_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_registrations_on_student_id"
+    t.index ["teaching_id"], name: "index_registrations_on_teaching_id"
   end
 
   create_table "searches", force: :cascade do |t|
@@ -84,6 +97,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_10_142209) do
     t.index ["department_id"], name: "index_students_on_department_id"
   end
 
+  create_table "teachings", force: :cascade do |t|
+    t.bigint "course_id", null: false
+    t.bigint "user_id", null: false
+    t.string "section"
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_teachings_on_course_id"
+    t.index ["user_id"], name: "index_teachings_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -108,7 +132,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_10_142209) do
   add_foreign_key "courses", "departments"
   add_foreign_key "prerequisites", "courses"
   add_foreign_key "prerequisites", "courses", column: "prerequisite_course_id"
+  add_foreign_key "registrations", "students"
+  add_foreign_key "registrations", "teachings"
   add_foreign_key "sections", "courses"
   add_foreign_key "sections", "users", column: "teacher_id"
   add_foreign_key "students", "departments"
+  add_foreign_key "teachings", "courses"
+  add_foreign_key "teachings", "users"
 end

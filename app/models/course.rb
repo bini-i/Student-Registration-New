@@ -1,5 +1,6 @@
 class Course < ApplicationRecord
   belongs_to :department
+  has_many :teachings
 
   has_many :prerequisites, foreign_key: :course_id, class_name: 'Prerequisite', dependent: :destroy
 

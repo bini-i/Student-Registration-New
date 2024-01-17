@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  student: one
+  grade: 9.99
+  academic_year: MyString
+  class_uear: MyString
+  semester: MyString
+  teaching: one
+
+two:
+  student: two
+  grade: 9.99
+  academic_year: MyString
+  class_uear: MyString
+  semester: MyString
+  teaching: two
