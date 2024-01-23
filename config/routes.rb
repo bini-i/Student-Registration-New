@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :registrations
   # Defines the root path route ("/")
   root 'pages#home'      #root path or home page
   devise_for :users
@@ -9,6 +8,7 @@ Rails.application.routes.draw do
     resources :courses
     resources :students
     resources :searches, only: [ :new, :create, :show ]
+    resources :registrations
   end
 
   get 'searches', to: "searches#index", as: 'searches'

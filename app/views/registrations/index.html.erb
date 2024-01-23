@@ -1,14 +1,14 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Registrations</h1>
-
-<div id="registrations">
-  <% @registrations.each do |registration| %>
-    <%= render registration %>
-    <p>
-      <%= link_to "Show this registration", registration %>
-    </p>
-  <% end %>
+<div class="d-flex mb-4">
+  <h2 class="font-weight-normal"><%= @department.dept_name %>'s registrations</h2>
+  
+  <%= link_to "New Registration", new_department_registration_path(@department), class: "btn btn-primary btn-sm d-inline-flex align-items-center ms-auto" %>
 </div>
 
-<%= link_to "New registration", new_registration_path %>
+<p style="color: green"><%= notice %></p>
+
+<div class="mt-3 mb-4">
+  <%= link_to departments_path, class: "link-underline link-underline-opacity-0" do %>
+    <i class="bi bi-arrow-left"></i>
+    <span class="fs-5">Back to departments</span>
+  <% end %>
+</div>

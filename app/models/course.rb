@@ -1,4 +1,7 @@
 class Course < ApplicationRecord
+  enum class_year: [:year_I, :year_II, :year_III, :year_IV, :year_V]
+  enum semester: [:semester_I, :semester_II]
+
   belongs_to :department
   has_many :teachings
 
@@ -9,6 +12,8 @@ class Course < ApplicationRecord
   validates :course_name, presence: true, uniqueness: true, :if => lambda { |course| course.current_step == "course_info" } 
   validates :credit_hour, presence: true
   validates :ects, presence: true
+  validates :class_year, presence: true
+  validates :semester, presence: true
 
   attr_writer :current_step
 

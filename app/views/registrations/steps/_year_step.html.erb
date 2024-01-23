@@ -1,0 +1,4 @@
+<div>
+  <%= form.select :class_year, Course.class_years.keys.map { |c| [c, c] }, {:prompt => "--select class year--"}, placeholder: "Class Year", class: "form-control" %>
+  <%= form.select :semester, Course.semesters.keys.map { |s| [s, s] }, {:prompt => "--select semester--"}, placeholder: "Semester", class: "form-control" %>
+</div>

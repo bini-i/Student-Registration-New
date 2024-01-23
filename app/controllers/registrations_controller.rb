@@ -1,9 +1,11 @@
 class RegistrationsController < ApplicationController
+  before_action :get_department
   before_action :set_registration, only: %i[ show edit update destroy ]
 
   # GET /registrations or /registrations.json
   def index
-    @registrations = Registration.all
+    session[:step] = session[:registration_params] = nil
+    @registrations = @department.registrations
   end
 
   # GET /registrations/1 or /registrations/1.json
@@ -12,26 +14,49 @@ class RegistrationsController < ApplicationController
 
   # GET /registrations/new
   def new
-    @registration = Registration.new
+    session[:registration_params] ||= {}
+
+    @registration = @department.registrations.build
   end
 
   # GET /registrations/1/edit
   def edit
+    session[:registration_params] ||= {}
   end
 
   # POST /registrations or /registrations.json
   def create
-    @registration = Registration.new(registration_params)
+    session[:registration_params].deep_merge!(registration_params) if params[:registration]
+    @registration = @department.registrations.build(session[:registration_params])
 
-    respond_to do |format|
-      if @registration.save
-        format.html { redirect_to registration_url(@registration), notice: "Registration was successfully created." }
-        format.json { render :show, status: :created, location: @registration }
+    @registration.current_step = session[:step]
+
+    if @registration.valid?
+      if params[:back_button]
+        @registration.previous_step
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @registration.errors, status: :unprocessable_entity }
+        @registration.next_step
       end
+
+      session[:step] = @registration.current_step
     end
+
+    if @registration.new_record?
+      render "new"
+    else
+      session[:step] = session[:registration_params] = nil
+      redirect_to department_registrations_path(@department), notice: "Registration was successful"
+    end
+
+    # respond_to do |format|
+    #   if @registration.save
+    #     format.html { redirect_to registration_url(@registration), notice: "Registration was successfully created." }
+    #     format.json { render :show, status: :created, location: @registration }
+    #   else
+    #     format.html { render :new, status: :unprocessable_entity }
+    #     format.json { render json: @registration.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /registrations/1 or /registrations/1.json
@@ -58,6 +83,10 @@ class RegistrationsController < ApplicationController
   end
 
   private
+    def get_department
+      @department = Department.find(params[:department_id])
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_registration
       @registration = Registration.find(params[:id])
@@ -65,6 +94,6 @@ class RegistrationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def registration_params
-      params.require(:registration).permit(:student_id, :grade, :academic_year, :class_uear, :semester, :teaching_id)
+      params.require(:registration).permit(:student_id, :grade, :academic_year, :class_year, :semester, :teaching_id)
     end
 end

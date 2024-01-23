@@ -8,25 +8,29 @@
 
 Course.destroy_all
 
-10.times do
+30.times do
     Course.create!(
         course_name: Faker::Book.unique.title,
         credit_hour: Random.rand(3..5),
         ects: Random.rand(5..7),
+        class_year: Random.rand(1...5),
+        semester: Random.rand(1...2),
         department_id: Random.rand(2..6),
     )
 end
 
-10.times do
+30.times do
     Course.create!(
         course_name: Faker::Book.unique.title,
         credit_hour: Random.rand(3..5),
         ects: Random.rand(5..7),
+        class_year: Random.rand(1...5),
+        semester: Random.rand(1...2),
         department_id: Random.rand(2..6),
     )
 end
 
-puts "20 courses created"
+puts "60 courses created"
 
 Student.destroy_all
 

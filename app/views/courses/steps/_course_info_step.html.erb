@@ -9,3 +9,11 @@
 <div>
     <%= form.number_field :ects, hide_label: true, placeholder: "Ects" %>
 </div>
+
+<div>
+    <%= form.select :class_year, Course.class_years.keys.map { |c| [c, c] }, {:prompt => "--select class year--", hide_label: true} %>
+</div>
+
+<div>
+    <%= form.select :semester, Course.semesters.keys.map { |s| [s, s] }, {:prompt => "--select semester--", hide_label: true} %>
+</div>

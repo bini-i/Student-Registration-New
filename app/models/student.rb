@@ -2,6 +2,7 @@ class Student < ApplicationRecord
   enum status: [ :active, :withdrawn, :completed]
 
   belongs_to :department
+  has_many :registrations
 
   validates :first_name, presence: true
   validates :father_name, presence: true
