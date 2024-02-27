@@ -1,14 +1,26 @@
 class StudentsController < ApplicationController
+  
+  include FilterableController
+  
   before_action :get_department
   before_action :get_admission_years
-  # before_action :get_year_count
-  before_action :get_sections
+  before_action :get_class_years
+
+  # after_action :get_sections
+
   before_action :set_student, only: %i[ show edit update destroy ]
   
+  # def filter
+    
+  # end
+
   # GET /department/1/students or /department/1/students.json
   def index
+    console
     # Gets all students of a department if year or section not provided
-    @students = filtered_students || @department.students.order('first_name')
+    # @students = filtered_students || @department.students.order('first_name')
+    @students = filter(Student.all)
+    @sections = @students.pluck(:section).uniq.sort
   end
 
   # GET /department/1/students/1 or /department/1/students/1.json
@@ -81,14 +93,24 @@ class StudentsController < ApplicationController
       params.require(:student).permit(:first_name, :father_name, :last_name, :gender, :phone, :nationality, :dob, :martial_status, :admission_type, :class_year, :semester, :admission_year, :section, :status, address: [:woreda, :city, :region])
     end
 
-    def filtered_students
-      return unless params[:year].present?
-      if params[:section]
-        Student.section_students(@department, params[:year], params[:section])
-      else
-        Student.year_students(@department, params[:year])
-      end
+    def filter_params
+      {
+        admission_year: params[:admission_year],
+        class_year: params[:class_year],
+        section: params[:section],
+      }
     end
+
+    # def filtered_students
+    #   return unless params[:year].present?
+    #   if params[:section]
+    #     Student.section_students(@department, params[:year], params[:section])
+    #   elsif params[:class_year]
+    #     Student.class_year_students(@department, params[:year], params[:class_year])
+    #   else
+    #     Student.year_students(@department, params[:year])
+    #   end
+    # end
 
     # def get_year_count
     #   @year_count = @department.students.pluck(:class_year).uniq.size
@@ -98,7 +120,11 @@ class StudentsController < ApplicationController
       @admission_years = @department.students.pluck(:admission_year).uniq.sort
     end
 
-    def get_sections
-      @sections = Student.year_students(@department, params[:year]).pluck(:section).uniq.sort
+    def get_class_years
+      @class_years = @department.students.pluck(:class_year).uniq.sort
     end
+
+    # def get_sections
+    #   @sections = @students.pluck(:section).uniq.sort
+    # end
 end

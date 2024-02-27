@@ -15,6 +15,7 @@ class CoursesController < ApplicationController
 
   # GET /department/1/courses/new
   def new
+    console
     session[:course_params] ||= {}
     session[:prerequisite] ||= []
     @course = @department.courses.build
@@ -28,6 +29,7 @@ class CoursesController < ApplicationController
 
   # POST /department/1/courses or /department/1/courses.json
   def create
+    console
     session[:course_params].deep_merge!(course_params) if params[:course]
     @course = @department.courses.build(session[:course_params])
 

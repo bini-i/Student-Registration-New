@@ -1,30 +1,29 @@
-<div class="table-responsive fs-5">
-  <h5 class="text-primary py-3"><%= "#{params[:registration][:class_year].humanize.upcase} #{params[:registration][:semester].humanize.upcase} COURSES" %></h5>
+<div class="table-responsive fs-5" data-controller="checkbox-select-all">
+  <h5 class="text-primary py-3"><%= "#{session[:registration_params]["class_year"].humanize.upcase} #{session[:registration_params]["semester"].humanize.upcase} COURSES" %></h5>
   <table class="table table-sm table-striped align-middle">
     <thead>
       <tr>
+        <th scope="col">
+            <%= check_box_tag "course_all", nil, nil, { data: { checkbox_select_all_target: "parent", action: "change->checkbox-select-all#toggleChildren" }} %>
+        </th>
         <th scope="col">No.</th>
         <th scope="col">Course Name</th>
         <th scope="col">Credit Hour</th>
         <th scope="col">Ects</th>
-        <th scope="col">Class Year</th>
-        <th scope="col">Semester</th>
       </tr>
     </thead>
     <tbody>
-      <% @department.courses.where(class_year: params[:registration][:class_year], semester: params[:registration][:semester]).each_with_index do |course, index| %>
+      <% @department.courses.where(class_year: session[:registration_params]["class_year"], semester: session[:registration_params]["semester"]).each_with_index do |course, index| %>
         <tr class="" style="height: 50px">
+          <td>
+            <%= check_box_tag "course_id[]", course.id, nil, { multiple: true, data: { checkbox_select_all_target: "child", action: "change->checkbox-select-all#toggleParent" }} %>
+          </td>
           <td><%= index+1 %></td>
           <td><%= course.course_name %></td>
           <td><%= course.credit_hour %></td>
           <td><%= course.ects %></td>
-          <td><%= course.class_year %></td>
-          <td><%= course.semester %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
 </div>
-
-
-<%# check_box_tag "user_ids[]", user.id, nil, { multiple: true } %>

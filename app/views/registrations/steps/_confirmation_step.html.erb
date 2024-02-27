@@ -1,0 +1,93 @@
+<h5 class="text-primary py-3"><%= "#{session[:registration_params]["class_year"].humanize.upcase} #{session[:registration_params]["semester"].humanize.upcase}" %></h5>
+
+<div class="card">
+  <div class="card-body">
+    Please confirm the registration below:
+
+    <hr class="hr">
+
+    <div class="d-flex justify-content-around">
+        <div>
+            <span class="fs-5 text-secondary">Department: </span>
+            <span class="fw-bold"><%= @department.dept_name %></span>
+        </div>
+        
+        <div>
+            <span class="fs-5 text-secondary">Class Year: </span>
+            <span class="fw-bold"><%= session[:registration_params]["class_year"] %></span>
+        </div>
+
+        <div>
+            <span class="fs-5 text-secondary">Semester: </span>
+            <span class="fw-bold"><%= session[:registration_params]["semester"] %></span>
+        </div>
+
+        <div>
+            <span class="fs-5 text-secondary">Academic Year: </span>
+            <span class="fw-bold"><%= session[:registration_params]["academic_year"] %></span>
+        </div>
+    </div>
+
+    <hr class="hr">
+
+    <div class="fs-5 text-secondary my-2">Courses: <%= @semester_courses.count %> courses</div>
+
+    <div class="table-responsive fs-5">
+        <table class="table table-sm table-striped align-middle">
+            <thead>
+                <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">Course Name</th>
+                    <th scope="col">Credit Hour</th>
+                    <th scope="col">Ects</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @semester_courses.each_with_index do |course, index| %>
+                    <tr class="" style="height: 50px">
+                        <td><%= index+1 %></td>
+                        <td><%= course.course_name %></td>
+                        <td><%= course.credit_hour %></td>
+                        <td><%= course.ects %></td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+
+    <hr class="hr">
+
+    <div class="fs-5 text-secondary my-2">Students: <%= @active_students.count %> students</div>
+
+    <div class="table-responsive fs-5">
+        <table class="table table-sm table-striped align-middle">
+            <thead>
+                <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Father Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">class_year</th>
+                    <th scope="col">semester</th>
+                    <th scope="col">section</th>
+                    <th scope="col">status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @active_students.each_with_index do |student, index| %>
+                    <tr class="" style="height: 50px">
+                        <td><%= index+1 %></td>
+                        <td><%= student.first_name %></td>
+                        <td><%= student.father_name %></td>
+                        <td><%= student.last_name %></td>
+                        <td><%= student.class_year %></td>
+                        <td><%= student.semester %></td>
+                        <td><%= student.section %></td>
+                        <td><%= student.status %></td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+  </div>
+</div>

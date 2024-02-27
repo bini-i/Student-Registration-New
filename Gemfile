@@ -70,6 +70,8 @@ group :development do
   gem 'binding_of_caller'
   gem 'pry-rails'
 
+  gem 'byebug'
+
   gem 'faker'
 end
 

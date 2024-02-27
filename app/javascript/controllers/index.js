@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import CheckboxSelectAllController from "./checkbox_select_all_controller"
+application.register("checkbox-select-all", CheckboxSelectAllController)
+
 import FlashController from "./flash_controller"
 application.register("flash", FlashController)
 

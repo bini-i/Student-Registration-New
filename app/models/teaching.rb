@@ -1,4 +1,5 @@
 class Teaching < ApplicationRecord
-  belongs_to :course, optional: true
-  belongs_to :user
+  belongs_to :course
+  belongs_to :user, optional: true
+  has_many :registrations
 end

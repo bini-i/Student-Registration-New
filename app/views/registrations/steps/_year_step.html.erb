@@ -1,4 +1,15 @@
 <div>
-  <%= form.select :class_year, Course.class_years.keys.map { |c| [c, c] }, {:prompt => "--select class year--"}, placeholder: "Class Year", class: "form-control" %>
-  <%= form.select :semester, Course.semesters.keys.map { |s| [s, s] }, {:prompt => "--select semester--"}, placeholder: "Semester", class: "form-control" %>
+  <%= form.select :academic_year, [Date.today.year-8, Date.today.year-7], {:prompt => "--select Academic year--"}, placeholder: "Academic Year", class: "form-control" %>
+  
+  <hr class="hr my-4">
+
+  <div class="row g-3">
+    <div class="col-md-6">
+      <%= form.select :class_year, Course.class_years.keys.map { |c| [c, c] }, {:prompt => "--select class year--"}, placeholder: "Class Year", class: "form-control" %>
+    </div>
+
+    <div class="col-md-6">
+      <%= form.select :semester, Course.semesters.keys.map { |s| [s, s] }, {:prompt => "--select semester--"}, placeholder: "Semester", class: "form-control" %>
+    </div>
+  </div>
 </div>

@@ -6,13 +6,16 @@ class Registration < ApplicationRecord
   belongs_to :teaching, optional: true
   belongs_to :department
 
+  validates :academic_year, presence: true
   validates :class_year, presence: true
   validates :semester, presence: true
+
+  # validates :atleast_one_course_must_be_selected, :if => lambda { |registration| registration.current_step == "course" } 
 
   attr_writer :current_step
 
   def steps
-    %w[year courses students]
+    %w[year courses students confirmation last]
   end
 
   def current_step
@@ -30,9 +33,16 @@ class Registration < ApplicationRecord
   def first_step?
     current_step == steps.first
   end
+  
+  def confirmation_step?
+    current_step == "confirmation"
+  end
 
   def last_step?
     current_step == steps.last
   end
 
+  # def atleast_one_course_must_be_selected
+
+  # end
 end

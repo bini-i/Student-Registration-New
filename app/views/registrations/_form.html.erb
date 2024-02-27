@@ -3,8 +3,6 @@
   
     <% if registration.errors.any? %>
       <div style="color: red">
-        <h5><%= pluralize(registration.errors.count, "error") %> prohibited this registration from being saved:</h5>
-
         <ul>
           <% registration.errors.each do |error| %>
             <li><%= error.full_message %></li>
@@ -15,41 +13,9 @@
 
     <%= render "registrations/steps/#{registration.current_step}_step", form: form %>
   </div>
-<!--
-  <div>
-    <%= form.label :student_id, style: "display: block" %>
-    <%= form.text_field :student_id %>
-  </div>
 
   <div>
-    <%= form.label :grade, style: "display: block" %>
-    <%= form.text_field :grade %>
-  </div>
-
-  <div>
-    <%= form.label :academic_year, style: "display: block" %>
-    <%= form.text_field :academic_year %>
-  </div>
-
-  <div>
-    <%= form.label :class_uear, style: "display: block" %>
-    <%= form.text_field :class_uear %>
-  </div>
-
-  <div>
-    <%= form.label :semester, style: "display: block" %>
-    <%= form.text_field :semester %>
-  </div>
-
-  <div>
-    <%= form.label :teaching_id, style: "display: block" %>
-    <%= form.text_field :teaching_id %>
-  </div>
--->
-
-  <div>
-    <%= form.submit class: "btn btn-primary" if registration.last_step? %>
-    <%= form.submit "Next", class: "btn btn-primary" unless registration.last_step? %>
+    <%= form.submit registration.confirmation_step? ? "Create Registration" : "Next", class: "btn btn-primary" unless registration.last_step? %>
     <%= form.submit "Back", name: "back_button", class: "btn btn-primary" unless registration.first_step? %>
   </div>
 <% end %>

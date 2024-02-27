@@ -1,0 +1,11 @@
+<%= bootstrap_form_with(model: [@department, @search]) do |form| %>
+
+    <div class="col-md-6">
+        <%= form.select :admission_year, @admission_years.map{|year| [year, year]}, {:prompt => "--select admission year--"}, placeholder: "Admission Year", class:"form-control" %>
+    </div>
+
+    <div class="col-md-6">
+        <%= form.select :class_year, @year_count.times.map {|year| ["#{year+1} year", year+1]}, {:prompt => "--select class year--"}, placeholder: "Class Year", class:"form-control" %>
+    </div>
+
+<% end %>

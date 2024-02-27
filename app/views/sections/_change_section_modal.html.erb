@@ -1,0 +1,38 @@
+<%= turbo_frame_tag "turbomodal", target: :_top do %>
+    <div class="modal fade" data-controller="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Changing Section...</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-warning" role="alert">
+                        You are trying to change section of "<b><%= student.full_name %></b>"
+                    </div>
+                    <div class="col-md-6">
+                        <%= bootstrap_form_with( url: handle_section_change_path(@department, student), method: :post, local: true) do |form| %>
+                            <% if student.errors.any? %>
+                                <div style="color: red">
+                                    <ul>
+                                    <% student.errors.each do |error| %>
+                                        <li><%= error.full_message %></li>
+                                    <% end %>
+                                    </ul>
+                                </div>
+                            <% end %>
+
+                            <%= form.select :section, @sections.map {|section| [section, section]}, {:prompt => "--select section--"}, placeholder: "section", class: "form-control" %>
+
+                            <%= form.submit "Change Section", name: "change_section", class: "btn btn-primary mt-2" %>
+                        <% end %>
+                    </div>
+                </div>
+                <%# <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div> %>
+            </div>
+        </div>
+    </div>
+<% end %>

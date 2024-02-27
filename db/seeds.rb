@@ -8,33 +8,33 @@
 
 Course.destroy_all
 
-30.times do
+50.times do
     Course.create!(
         course_name: Faker::Book.unique.title,
         credit_hour: Random.rand(3..5),
         ects: Random.rand(5..7),
-        class_year: Random.rand(1...5),
-        semester: Random.rand(1...2),
-        department_id: Random.rand(2..6),
+        class_year: Random.rand(0...5),
+        semester: Random.rand(0...2),
+        department_id: [4, 5, 3, 9, 7, 2, 6].sample,
     )
 end
 
-30.times do
+50.times do
     Course.create!(
         course_name: Faker::Book.unique.title,
         credit_hour: Random.rand(3..5),
         ects: Random.rand(5..7),
-        class_year: Random.rand(1...5),
-        semester: Random.rand(1...2),
-        department_id: Random.rand(2..6),
+        class_year: Random.rand(0...5),
+        semester: Random.rand(0...2),
+        department_id: [4, 5, 3, 9, 7, 2, 6].sample,
     )
 end
 
-puts "60 courses created"
+puts "100 courses created"
 
 Student.destroy_all
 
-300.times do 
+1000.times do 
     Student.create!(
         first_name: Faker::Name.unique.first_name,
         father_name: Faker::Name.unique.first_name,
@@ -45,21 +45,21 @@ Student.destroy_all
         dob: Faker::Date.between(from: '1990-09-23', to: '2005-09-25') ,
         nationality: "Ethiopia",
         martial_status: ["Single", "Married"].sample ,
-        department_id: Random.rand(2..6),
+        department_id: [4, 5, 3, 9, 7, 2, 6].sample,
         address: {
             woreda: "05",
             city: "",
             region: ""
         },
-        class_year: Random.rand(1..5),
-        semester: Random.rand(1..2),
+        class_year: Random.rand(0...5),
+        semester: Random.rand(0...2),
         admission_year: Random.rand(2012...2016),
         section: ["A", "B", "C"].sample,
         status: Random.rand(0..2)
     )
 end
 
-puts "300 students created"
+puts "1000 students created"
 
 20.times do
     User.create!(

@@ -1,14 +1,79 @@
 <div class="d-flex mb-4">
   <h2 class="font-weight-normal"><%= @department.dept_name %>'s registrations</h2>
-  
+
+  <div class="d-flex mx-3 flex-grow-1 align-items-center">
+    <div class="dropdown dropend">
+      <span class="badge rounded-pill text-bg-info border-0 btn btn-secondary dropdown-toggle px-3 py-2" type="button" data-bs-toggle="dropdown" aria-expanded="false"><%= params[:academic_year] ? "#{params[:academic_year]} registrations" : "Choose Academic Year" %></span>
+      <ul class="dropdown-menu">
+          <% @academic_years.each do |year| %>
+            <li>
+              <%= link_to "#{year} registrations", academic_year_registrations_path(@department, year), class: "dropdown-item" %>
+            </li>
+          <% end %>
+      </ul>
+    </div>
+  </div>
+
   <%= link_to "New Registration", new_department_registration_path(@department), class: "btn btn-primary btn-sm d-inline-flex align-items-center ms-auto" %>
 </div>
 
 <p style="color: green"><%= notice %></p>
 
-<div class="mt-3 mb-4">
+<div class="mt-3 mb-3">
   <%= link_to departments_path, class: "link-underline link-underline-opacity-0" do %>
     <i class="bi bi-arrow-left"></i>
     <span class="fs-5">Back to departments</span>
   <% end %>
 </div>
+
+<% if @semester_registrations && !@semester_registrations.empty? %>
+  <div class="bg-white p-4 my-4">
+
+    <div class="d-flex">
+      <h5 class="text-primary">Registered Courses</h5>
+
+      <%# class years selector starts here %>
+      <% if @semester_registrations && !@semester_registrations.empty? %>
+        <ul class="nav nav-tabs ms-auto" id="myTab0" role="tablist">
+          <% @class_years.each do |class_year| %>
+            <li class="nav-item d-grid align-items-center" role="presentation">
+              <%= link_to class_year.humanize.upcase, class_year_registrations_path(@department, params[:academic_year], class_year), class: "link-underline link-underline-opacity-0 px-2 py-1 #{"text-primary-emphasis bg-warning" if params[:class_year] == class_year}", type: "button", role: "tab", "aria-selected": "true" %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+      <%# class years selector ends here %>
+    </div>
+
+    <div class="table-responsive fs-5">
+      <% @semester_registrations.each do |semester, registrations| %>
+        <div class="mb-3">
+          <h6 class="text-primary my-3"> <%= params[:class_year] ? params[:class_year].humanize.upcase : @class_years.first.humanize.upcase %> <%= semester.humanize.upcase %></h6>
+
+          <table class="table table-sm table-striped align-middle">
+            <thead>
+              <tr>
+                <th scope="col">No.</th>
+                <th scope="col">Course Name</th>
+                <th scope="col">Credit Hour</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody class="accordion" id="accordionExample">
+              <% registrations.map{|reg| reg.teaching.course}.uniq.each_with_index do|course, index| %>
+                <tr class="" style="height: 50px">
+                  <td><%= index+1 %></td>
+                  <td><%= course.course_name %></td>
+                  <td><%= course.credit_hour %></td>
+                  <td>
+                    <%= link_to "View All Registered Students", registered_students_path(@department, params[:academic_year], params[:class_year], semester), data: {controller: "turbo"}, class: "btn btn-outline-primary btn-sm" %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
